@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memecoin Template Editor</title>
+  <style>
+    :root {
+      --background-dark: #1e1e2f;
+      --primary-color: #9945ff;
+      --text-light: #ffffff;
+      --border-radius: 12px;
+      --font-family: 'Inter', sans-serif;
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background-color: var(--background-dark);
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: #2a2a3c;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      text-align: center;
+      color: var(--primary-color);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, textarea, select, button {
+      width: 100%;
+      padding: 0.75rem;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #7a3ce2;
+    }
+    .add-button {
+      margin-top: 1rem;
+      align-self: flex-start;
+    }
+    .dynamic-section {
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Memecoin Template Editor</h1>
+    <form id="templateForm">
+      <h2>Basic Information</h2>
+      <label for="projectName">Project Name</label>
+      <input type="text" id="projectName" placeholder="Enter your project name" required>
+
+      <label for="projectDescription">Project Description</label>
+      <textarea id="projectDescription" rows="4" placeholder="Enter a brief description" required></textarea>
+
+      <label for="contractAddress">Contract Address</label>
+      <input type="text" id="contractAddress" placeholder="Enter contract address" required>
+
+      <label for="logoUpload">Upload Logo</label>
+      <input type="file" id="logoUpload" accept="image/*" required>
+
+      <h2>About Section</h2>
+      <label for="aboutTitle">Title</label>
+      <input type="text" id="aboutTitle" placeholder="Enter title for About section" required>
+
+      <label for="aboutDescription">Description</label>
+      <textarea id="aboutDescription" rows="4" placeholder="Enter description for About section" required></textarea>
+
+      <label for="aboutImage">Upload Image</label>
+      <input type="file" id="aboutImage" accept="image/*" required>
+
+      <h2>How to Buy</h2>
+      <div id="howToBuySection" class="dynamic-section">
+        <label>Step 1 Title</label>
+        <input type="text" name="howToBuyTitle" placeholder="Enter step title">
+        <label>Step 1 Description</label>
+        <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
+      </div>
+      <button type="button" class="add-button" onclick="addHowToBuyStep()">Add Step</button>
+
+      <h2>Roadmap</h2>
+      <div id="roadmapSection" class="dynamic-section">
+        <label>Roadmap Item Title</label>
+        <input type="text" name="roadmapTitle" placeholder="Enter roadmap title">
+        <label>Roadmap Item Description</label>
+        <textarea name="roadmapDescription" rows="3" placeholder="Enter roadmap description"></textarea>
+      </div>
+      <button type="button" class="add-button" onclick="addRoadmapItem()">Add Roadmap Item</button>
+
+      <h2>FAQs</h2>
+      <div id="faqSection" class="dynamic-section">
+        <label>FAQ Question</label>
+        <input type="text" name="faqQuestion" placeholder="Enter question">
+        <label>FAQ Answer</label>
+        <textarea name="faqAnswer" rows="3" placeholder="Enter answer"></textarea>
+      </div>
+      <button type="button" class="add-button" onclick="addFAQItem()">Add FAQ</button>
+
+      <h2>Theme Selection</h2>
+      <label for="themeSelection">Choose a Theme</label>
+      <select id="themeSelection">
+        <option value="dark-orange">Dark and Orange</option>
+        <option value="dark-green">Dark and Green</option>
+        <option value="dark-blue">Dark and Blue</option>
+      </select>
+
+      <button type="submit">Create Website</button>
+    </form>
+  </div>
+
+  <script>
+    function addHowToBuyStep() {
+      const section = document.getElementById('howToBuySection');
+      const stepCount = section.childElementCount / 2 + 1;
+      const newStep = `
+        <label>Step ${stepCount} Title</label>
+        <input type="text" name="howToBuyTitle" placeholder="Enter step title">
+        <label>Step ${stepCount} Description</label>
+        <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
+      `;
+      section.insertAdjacentHTML('beforeend', newStep);
+    }
+
+    function addRoadmapItem() {
+      const section = document.getElementById('roadmapSection');
+      const newItem = `
+        <label>Roadmap Item Title</label>
+        <input type="text" name="roadmapTitle" placeholder="Enter roadmap title">
+        <label>Roadmap Item Description</label>
+        <textarea name="roadmapDescription" rows="3" placeholder="Enter roadmap description"></textarea>
+      `;
+      section.insertAdjacentHTML('beforeend', newItem);
+    }
+
+    function addFAQItem() {
+      const section = document.getElementById('faqSection');
+      const newFAQ = `
+        <label>FAQ Question</label>
+        <input type="text" name="faqQuestion" placeholder="Enter question">
+        <label>FAQ Answer</label>
+        <textarea name="faqAnswer" rows="3" placeholder="Enter answer"></textarea>
+      `;
+      section.insertAdjacentHTML('beforeend', newFAQ);
+    }
+
+    document.getElementById('templateForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Collect user input
+      const formData = new FormData(e.target);
+      const theme = formData.get('themeSelection');
+      const projectName = formData.get('projectName');
+      const projectDescription = formData.get('projectDescription');
+      const contractAddress = formData.get('contractAddress');
+      const aboutTitle = formData.get('aboutTitle');
+      const aboutDescription = formData.get('aboutDescription');
+
+      // Dynamically generate the HTML template
+      const websiteHTML = `<!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <title>${projectName}</title>
+      </head>
+      <body>
+        <h1>${projectName}</h1>
+        <p>${projectDescription}</p>
+        <p>Contract Address: ${contractAddress}</p>
+        <h2>${aboutTitle}</h2>
+        <p>${aboutDescription}</p>
+      </body>
+      </html>`;
+
+      // Open the generated HTML in a new tab
+      const newWindow = window.open();
+      newWindow.document.write(websiteHTML);
+      newWindow.document.close();
+    });
+  </script>
+</body>
+</html>

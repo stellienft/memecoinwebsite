@@ -4,11 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memecoin Website Generator</title>
-  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.41.3/lib/index.iife.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-wallets@0.8.5/lib/index.iife.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react@0.12.0/lib/index.iife.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-base@0.8.5/lib/index.iife.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react-ui@0.9.0/lib/index.iife.min.js"></script>
   <link rel="stylesheet" href="generate/styles.css">
 </head>
 <body>
@@ -22,8 +17,9 @@
     </div>
 
     <form id="templateForm">
-      <h2>Basic Information</h2>
-      <p class="section-description">Provide the foundational details for your project. These fields are required to set up your website correctly.</p>
+      <h2 style="margin-bottom: 1rem;">Basic Information</h2>
+      <p class="section-description" style="margin-bottom: 1rem;">Provide the foundational details for your project. These fields are required to set up your website correctly.</p>
+
       <label for="projectName">Project Name</label>
       <input type="text" id="projectName" placeholder="Enter your project name" required>
 
@@ -36,6 +32,18 @@
       <label for="logoUpload">Upload Logo</label>
       <div class="upload" onclick="document.getElementById('logoUpload').click()">Click to Upload Logo</div>
       <input type="file" id="logoUpload" accept="image/*" style="display: none;" required>
+
+      <h2>About</h2>
+      <p class="section-description">Share some details about your project to engage your audience and highlight its purpose.</p>
+      <label for="aboutTitle">About Title</label>
+      <input type="text" id="aboutTitle" placeholder="Enter title for About section">
+
+      <label for="aboutDescription">About Description</label>
+      <textarea id="aboutDescription" rows="4" placeholder="Enter a description for your project"></textarea>
+
+      <label for="aboutImage">Upload Image</label>
+      <div class="upload" onclick="document.getElementById('aboutImage').click()">Click to Upload Image</div>
+      <input type="file" id="aboutImage" accept="image/*" style="display: none;">
 
       <h2>How to Buy</h2>
       <div class="switch-container">
@@ -121,7 +129,6 @@
 
   <script>
     async function connectWallet() {
-      const { SolanaWalletAdapter } = solanaWalletAdapterWallets;
       const adapter = new SolanaWalletAdapter();
       try {
         await adapter.connect();
@@ -132,44 +139,6 @@
     }
 
     document.getElementById("connectWallet").addEventListener("click", connectWallet);
-
-    document.getElementById("useDefaultHowToBuy").addEventListener("change", function () {
-      const howToBuySection = document.getElementById("howToBuySection");
-      if (this.checked) {
-        howToBuySection.innerHTML = `
-          <label>Step 1 Title</label>
-          <input type="text" value="Create a Wallet" readonly>
-
-          <label>Step 1 Description</label>
-          <textarea readonly>Create a Solana wallet using Phantom or another Solana wallet provider.</textarea>
-
-          <label>Step 2 Title</label>
-          <input type="text" value="Purchase SOL" readonly>
-
-          <label>Step 2 Description</label>
-          <textarea readonly>Buy SOL from an exchange and transfer it to your wallet.</textarea>
-
-          <label>Step 3 Title</label>
-          <input type="text" value="Swap SOL" readonly>
-
-          <label>Step 3 Description</label>
-          <textarea readonly>Use a platform like Raydium to swap SOL for your token.</textarea>
-        `;
-      } else {
-        howToBuySection.innerHTML = `
-          <label>Step 1 Title</label>
-          <input type="text" name="howToBuyTitle" placeholder="Enter step title">
-
-          <label>Step 1 Description</label>
-          <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
-        `;
-      }
-    });
-
-    document.getElementById('templateForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Website successfully created!');
-    });
 
     function addHowToBuyStep() {
       const howToBuySection = document.getElementById("howToBuySection");
@@ -191,7 +160,6 @@
         <div>
           <label for="faqQuestion${faqCount}">FAQ Question ${faqCount}</label>
           <input type="text" id="faqQuestion${faqCount}" placeholder="Enter question">
-
           <label for="faqAnswer${faqCount}">FAQ Answer ${faqCount}</label>
           <textarea id="faqAnswer${faqCount}" rows="3" placeholder="Enter answer"></textarea>
         </div>

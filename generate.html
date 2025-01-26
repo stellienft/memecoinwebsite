@@ -9,57 +9,12 @@
   <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react@0.12.0/lib/index.iife.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-base@0.8.5/lib/index.iife.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react-ui@0.9.0/lib/index.iife.min.js"></script>
-  <link rel="stylesheet" href="generate/styles.css">
-  <style>
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    input, textarea, select {
-      width: calc(100% - 2rem);
-      margin-left: auto;
-      margin-right: auto;
-      box-sizing: border-box;
-    }
-    button {
-      width: calc(100% - 2rem);
-      margin-left: auto;
-      margin-right: auto;
-      box-sizing: border-box;
-    }
-    @media (max-width: 768px) {
-      .container {
-        padding: 1.5rem;
-      }
-      input, textarea, select {
-        width: calc(100% - 1rem);
-      }
-      button {
-        width: calc(100% - 1rem);
-      }
-    }
-    @media (max-width: 480px) {
-      .container {
-        padding: 1rem;
-      }
-      input, textarea, select {
-        width: 100%;
-      }
-      button {
-        width: 100%;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
     <h1>Memecoin Website Generator</h1>
+    <p class="section-description">Easily create your memecoin project website with this generator. Fill in the required fields, customize your site, and generate it in minutes.</p>
 
     <div class="wallet-connect">
       <button id="connectWallet" class="button">Connect Wallet</button>
@@ -68,8 +23,9 @@
 
     <form id="templateForm">
       <h2>Basic Information</h2>
+      <p class="section-description">Provide the foundational details for your project. These fields are required to set up your website correctly.</p>
       <label for="projectName">Project Name</label>
-      <input type="text" id="projectName" placeholder="Enter your project name" required oninput="updateSubdomain()">
+      <input type="text" id="projectName" placeholder="Enter your project name" required>
 
       <label for="projectDescription">Project Description</label>
       <textarea id="projectDescription" rows="4" placeholder="Enter a brief description" required></textarea>
@@ -82,8 +38,19 @@
       <input type="file" id="logoUpload" accept="image/*" style="display: none;" required>
 
       <h2>How to Buy</h2>
-      <div class="checkbox-group">
-        <button type="button" id="useDefaultHowToBuy" class="filled-button" onclick="toggleDefaultHowToBuy(this)">Use Default How to Buy</button>
+      <div class="switch-container">
+        <span>Enable How to Buy Section</span>
+        <label class="switch">
+          <input type="checkbox" id="enableHowToBuy" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="switch-container">
+        <span>Use Default How to Buy</span>
+        <label class="switch">
+          <input type="checkbox" id="useDefaultHowToBuy">
+          <span class="slider"></span>
+        </label>
       </div>
       <div id="howToBuySection">
         <label>Step 1 Title</label>
@@ -92,9 +59,16 @@
         <label>Step 1 Description</label>
         <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
       </div>
-      <button type="button" class="filled-button add-button" onclick="addHowToBuyStep()">Add Step</button>
+      <button type="button" class="add-button" onclick="addHowToBuyStep()">Add Step</button>
 
       <h2>Roadmap</h2>
+      <div class="switch-container">
+        <span>Enable Roadmap Section</span>
+        <label class="switch">
+          <input type="checkbox" id="enableRoadmap" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
       <div id="roadmapSection">
         <label>Roadmap Item Title</label>
         <input type="text" name="roadmapTitle" placeholder="Enter roadmap title">
@@ -102,11 +76,15 @@
         <label>Roadmap Item Description</label>
         <textarea name="roadmapDescription" rows="3" placeholder="Enter roadmap description"></textarea>
       </div>
-      <button type="button" class="filled-button add-button" onclick="addRoadmapItem()">Add Roadmap Item</button>
+      <button type="button" class="add-button" onclick="addRoadmapItem()">Add Roadmap Item</button>
 
       <h2>FAQ Section</h2>
-      <div class="checkbox-group">
-        <button type="button" id="enableFaq" class="filled-button" onclick="toggleFaqSection(this)">Disable FAQ Section</button>
+      <div class="switch-container">
+        <span>Enable FAQ Section</span>
+        <label class="switch">
+          <input type="checkbox" id="enableFaq" checked>
+          <span class="slider"></span>
+        </label>
       </div>
       <div id="faqSection">
         <div>
@@ -115,7 +93,7 @@
           <label for="faqAnswer1">FAQ Answer 1</label>
           <textarea id="faqAnswer1" rows="3" placeholder="Enter answer"></textarea>
         </div>
-        <button type="button" class="filled-button add-button" onclick="addFaqItem()">Add FAQ</button>
+        <button type="button" class="add-button" onclick="addFaqItem()">Add FAQ</button>
       </div>
 
       <h2>Theme Selection</h2>
@@ -137,7 +115,7 @@
         Custom Memecoin Website Cost: 0.5 SOL
       </div>
 
-      <button type="submit" class="filled-button">Create Website</button>
+      <button type="submit" class="filled-button" style="margin-bottom: 2rem;">Create Website</button>
     </form>
   </div>
 
@@ -155,69 +133,47 @@
 
     document.getElementById("connectWallet").addEventListener("click", connectWallet);
 
-    function toggleDefaultHowToBuy(button) {
-      const section = document.getElementById('howToBuySection');
-      if (button.textContent === 'Use Default How to Buy') {
-        section.innerHTML = `
+    document.getElementById("useDefaultHowToBuy").addEventListener("change", function () {
+      const howToBuySection = document.getElementById("howToBuySection");
+      if (this.checked) {
+        howToBuySection.innerHTML = `
           <label>Step 1 Title</label>
-          <input type="text" name="howToBuyTitle" value="Create a Phantom Wallet">
+          <input type="text" value="Create a Wallet" readonly>
 
           <label>Step 1 Description</label>
-          <textarea name="howToBuyDescription" rows="3">To create a Solana Phantom wallet, download the Phantom extension for your browser, follow the setup instructions, generate a new wallet, securely store your recovery phrase, and you’re ready to manage Solana assets.</textarea>
+          <textarea readonly>Create a Solana wallet using Phantom or another Solana wallet provider.</textarea>
 
           <label>Step 2 Title</label>
-          <input type="text" name="howToBuyTitle" value="Purchase Some SOL">
+          <input type="text" value="Purchase SOL" readonly>
 
           <label>Step 2 Description</label>
-          <textarea name="howToBuyDescription" rows="3">To buy SOL, first create an account on a cryptocurrency exchange supporting Solana, deposit funds, trade for SOL tokens, withdraw to your Solana wallet address, and confirm the transfer.</textarea>
+          <textarea readonly>Buy SOL from an exchange and transfer it to your wallet.</textarea>
 
           <label>Step 3 Title</label>
-          <input type="text" name="howToBuyTitle" value="Go to Raydium">
+          <input type="text" value="Swap SOL" readonly>
 
           <label>Step 3 Description</label>
-          <textarea name="howToBuyDescription" rows="3">Use Raydium or Phantom wallet to swap $SOL to your desired token instantly.</textarea>
-
-          <label>Step 4 Title</label>
-          <input type="text" name="howToBuyTitle" value="Swap SOL">
-
-          <label>Step 4 Description</label>
-          <textarea name="howToBuyDescription" rows="3">To purchase your token using Raydium, connect your Solana wallet, navigate to the trading pair, enter the desired amount, confirm the transaction, and receive your tokens in your wallet.</textarea>
+          <textarea readonly>Use a platform like Raydium to swap SOL for your token.</textarea>
         `;
-        button.textContent = 'Remove Default How to Buy';
       } else {
-        section.innerHTML = '';
-        button.textContent = 'Use Default How to Buy';
-      }
-    }
+        howToBuySection.innerHTML = `
+          <label>Step 1 Title</label>
+          <input type="text" name="howToBuyTitle" placeholder="Enter step title">
 
-    function toggleFaqSection(button) {
-      const faqSection = document.getElementById("faqSection");
-      if (button.textContent === 'Disable FAQ Section') {
-        faqSection.style.display = "none";
-        button.textContent = 'Enable FAQ Section';
-      } else {
-        faqSection.style.display = "block";
-        button.textContent = 'Disable FAQ Section';
+          <label>Step 1 Description</label>
+          <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
+        `;
       }
-    }
+    });
 
-    function addFaqItem() {
-      const faqSection = document.getElementById("faqSection");
-      const faqCount = faqSection.querySelectorAll("input").length / 2 + 1;
-      const newFaq = `
-        <div>
-          <label for="faqQuestion${faqCount}">FAQ Question ${faqCount}</label>
-          <input type="text" id="faqQuestion${faqCount}" placeholder="Enter question">
-          <label for="faqAnswer${faqCount}">FAQ Answer ${faqCount}</label>
-          <textarea id="faqAnswer${faqCount}" rows="3" placeholder="Enter answer"></textarea>
-        </div>
-      `;
-      faqSection.insertAdjacentHTML("beforeend", newFaq);
-    }
+    document.getElementById('templateForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Website successfully created!');
+    });
 
     function addHowToBuyStep() {
-      const section = document.getElementById('howToBuySection');
-      const stepCount = section.querySelectorAll("input").length / 2 + 1;
+      const howToBuySection = document.getElementById("howToBuySection");
+      const stepCount = howToBuySection.querySelectorAll("input").length / 2 + 1;
       const newStep = `
         <label>Step ${stepCount} Title</label>
         <input type="text" name="howToBuyTitle" placeholder="Enter step title">
@@ -225,35 +181,36 @@
         <label>Step ${stepCount} Description</label>
         <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
       `;
-      section.insertAdjacentHTML('beforeend', newStep);
+      howToBuySection.insertAdjacentHTML('beforeend', newStep);
+    }
+
+    function addFaqItem() {
+      const faqSection = document.getElementById("faqSection");
+      const faqCount = faqSection.querySelectorAll("input").length + 1;
+      const newFaq = `
+        <div>
+          <label for="faqQuestion${faqCount}">FAQ Question ${faqCount}</label>
+          <input type="text" id="faqQuestion${faqCount}" placeholder="Enter question">
+
+          <label for="faqAnswer${faqCount}">FAQ Answer ${faqCount}</label>
+          <textarea id="faqAnswer${faqCount}" rows="3" placeholder="Enter answer"></textarea>
+        </div>
+      `;
+      faqSection.insertAdjacentHTML('beforeend', newFaq);
     }
 
     function addRoadmapItem() {
-      const section = document.getElementById('roadmapSection');
-      const newItem = `
-        <label>Roadmap Item Title</label>
+      const roadmapSection = document.getElementById("roadmapSection");
+      const roadmapCount = roadmapSection.querySelectorAll("input").length + 1;
+      const newRoadmap = `
+        <label>Roadmap Item Title ${roadmapCount}</label>
         <input type="text" name="roadmapTitle" placeholder="Enter roadmap title">
 
-        <label>Roadmap Item Description</label>
+        <label>Roadmap Item Description ${roadmapCount}</label>
         <textarea name="roadmapDescription" rows="3" placeholder="Enter roadmap description"></textarea>
       `;
-      section.insertAdjacentHTML('beforeend', newItem);
+      roadmapSection.insertAdjacentHTML('beforeend', newRoadmap);
     }
-
-    function updateSubdomain() {
-      const projectName = document.getElementById("projectName").value.trim();
-      const subdomain = projectName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-      document.getElementById("generatedDomain").textContent = `${subdomain || "example"}.memecoinwebsites.io`;
-    }
-
-    function selectTheme(theme) {
-      alert(`Theme selected: ${theme}`);
-    }
-
-    document.getElementById('templateForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Website successfully created!');
-    });
   </script>
 </body>
 </html>

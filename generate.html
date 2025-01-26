@@ -12,20 +12,56 @@
     <h1>Memecoin Website Generator</h1>
     <p class="section-description">Easily create your memecoin project website with this generator. Fill in the required fields, customize your site, and generate it in minutes.</p>
 
-    <div class="domain-input-container" style="background-color: #1e1e2f; padding: 1rem; border-radius: 12px; margin-top: 1rem; display: flex; align-items: center; gap: 1rem;">
-      <input type="text" id="customSubdomain" placeholder="Enter your subdomain" style="flex: 2; padding: 0.75rem; border: 1px solid #6a0dad; background-color: #2a2a3c; color: #ffffff; font-size: 1.2rem; border-radius: 8px;">
-      <select id="domainExtension" style="flex: 1; padding: 0.75rem; background-color: #2e2e3f; color: #ffffff; border: 1px solid #6a0dad; border-radius: 8px; font-size: 1.2rem;">
-        <option value="memecoin.site">memecoin.site</option>
-        <option value="memeonsolana.xyz">memeonsolana.xyz</option>
-        <option value="memesonsol.xyz">memesonsol.xyz</option>
-        <option value="solanamemes.xyz">solanamemes.xyz</option>
-      </select>
+    <div class="wallet-connect">
+      <button id="connectWallet" class="button">Connect Wallet</button>
+      <p id="walletStatus" style="margin-left: 1rem; font-weight: bold;"></p>
     </div>
-    <div id="generatedSubdomainContainer" style="margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-      <p id="generatedSubdomain" style="font-size: 1.2rem; font-weight: bold;">Generated Subdomain:</p>
-      <span id="subdomainPreview" style="font-size: 1.2rem; color: #ffffff;"></span>
-      <span id="availabilityIcon" style="font-size: 1.2rem;"></span>
-    </div>
+
+<div class="domain-input-container" style="background-color: #1e1e2f; padding: 1rem; border-radius: 12px; margin-top: 1rem;">
+  <input type="text" id="customSubdomain" placeholder="Enter your subdomain" style="width: 100%; padding: 0.75rem; border: 1px solid #6a0dad; background-color: #2a2a3c; color: #ffffff; font-size: 1.2rem; border-radius: 8px; margin-bottom: 1rem;">
+  <select id="domainExtension" style="width: 100%; padding: 0.75rem; background-color: #2e2e3f; color: #ffffff; border: 1px solid #6a0dad; border-radius: 8px; font-size: 1.2rem;">
+    <option value="memecoin.site">memecoin.site</option>
+    <option value="memeonsolana.xyz">memeonsolana.xyz</option>
+    <option value="memesonsol.xyz">memesonsol.xyz</option>
+    <option value="solanamemes.xyz">solanamemes.xyz</option>
+  </select>
+</div>
+    
+<script>
+  const subdomainInput = document.getElementById('customSubdomain');
+  const domainExtension = document.getElementById('domainExtension');
+
+  async function updateSubdomainPreview() {
+    const subdomain = subdomainInput.value.trim();
+    const extension = domainExtension.value;
+    const fullSubdomain = subdomain ? `${subdomain}.${extension}` : '';
+
+    if (!subdomain) {
+      subdomainInput.style.borderColor = '#6a0dad'; // Default border
+      return;
+    }
+
+    const isAvailable = await fakeDomainCheck(subdomain, extension);
+
+    if (isAvailable) {
+      subdomainInput.style.borderColor = 'green'; // Green border for available domain
+    } else {
+      subdomainInput.style.borderColor = 'red'; // Red border for taken domain
+    }
+  }
+
+  async function fakeDomainCheck(subdomain, extension) {
+    // Replace with actual API call if needed
+    const takenDomains = ['example.memecoin.site', 'test.memeonsolana.xyz'];
+    return !takenDomains.includes(`${subdomain}.${extension}`);
+  }
+
+  subdomainInput.addEventListener('input', updateSubdomainPreview);
+  domainExtension.addEventListener('change', updateSubdomainPreview);
+
+  // Initialize the preview on load
+  updateSubdomainPreview();
+</script>
 
     <form id="templateForm">
       <h2 style="margin-bottom: 1rem;">Basic Information</h2>
@@ -82,16 +118,16 @@
 
       <h2>Social Links</h2>
       <p class="section-description">Add your social links to display them on the site.</p>
-      <label for="telegramLink">Telegram Link</label>
+      <label for="telegramLink">Telegram</label>
       <input type="url" id="telegramLink" placeholder="Enter Telegram link">
 
-      <label for="discordLink">Discord Link</label>
+      <label for="discordLink">Discord</label>
       <input type="url" id="discordLink" placeholder="Enter Discord link">
 
-      <label for="xLink">X (Twitter) Link</label>
+      <label for="xLink">X (Twitter)</label>
       <input type="url" id="xLink" placeholder="Enter X (Twitter) link">
 
-      <label for="dexScreenerLink">DEXScreener Link</label>
+      <label for="dexScreenerLink">DEXScreener</label>
       <input type="url" id="dexScreenerLink" placeholder="Enter DEXScreener link">
 
       <h2>Roadmap</h2>
@@ -130,8 +166,8 @@
       </div>
 
       <h2>Your Project Domain</h2>
-      <div class="domain-input-container" style="background-color: #1e1e2f; padding: 1rem; border-radius: 12px; display: flex; align-items: center; gap: 0.5rem;">
-        <span id="finalDomain" style="color: #ffffff; font-size: 1.2rem;">your-domain.memecoinwebsites.io</span>
+      <div class="domain-input-container" style="background-color: #1e1e2f; padding: 1rem; border-radius: 12px; display: flex; align-items: center;">
+        <span style="color: #ffffff; font-size: 1.2rem;">your-domain.memecoinwebsites.io</span>
       </div>
 
       <div class="cost-section">
@@ -143,48 +179,61 @@
   </div>
 
   <script>
-    const subdomainInput = document.getElementById('customSubdomain');
-    const domainExtension = document.getElementById('domainExtension');
-    const subdomainPreview = document.getElementById('subdomainPreview');
-    const availabilityIcon = document.getElementById('availabilityIcon');
-    const finalDomain = document.getElementById('finalDomain');
-
-    async function updateSubdomainPreview() {
-      const subdomain = subdomainInput.value.trim();
-      const extension = domainExtension.value;
-      const fullSubdomain = subdomain ? `${subdomain}.${extension}` : '';
-
-      subdomainPreview.textContent = fullSubdomain;
-      finalDomain.textContent = fullSubdomain;
-
-      if (!subdomain) {
-        subdomainPreview.style.color = '#ffffff';
-        availabilityIcon.textContent = '';
-        return;
-      }
-
-      const isAvailable = await fakeDomainCheck(subdomain, extension);
-
-      if (isAvailable) {
-        subdomainPreview.style.color = 'green';
-        availabilityIcon.innerHTML = '✅'; // Green tick icon
-      } else {
-        subdomainPreview.style.color = 'red';
-        availabilityIcon.innerHTML = '❌'; // Red cross icon
+    async function connectWallet() {
+      const adapter = new SolanaWalletAdapter();
+      try {
+        await adapter.connect();
+        document.getElementById("walletStatus").textContent = `Connected: ${adapter.publicKey.toString()}`;
+      } catch (error) {
+        console.error("Failed to connect wallet:", error);
       }
     }
 
-    async function fakeDomainCheck(subdomain, extension) {
-      // Replace with actual API call if needed
-      const takenDomains = ['example.memecoin.site', 'test.memeonsolana.xyz'];
-      return !takenDomains.includes(`${subdomain}.${extension}`);
+    document.getElementById("connectWallet").addEventListener("click", connectWallet);
+
+    function addHowToBuyStep() {
+      const howToBuySection = document.getElementById("howToBuySection");
+      const stepCount = howToBuySection.querySelectorAll("input").length / 2 + 1;
+      const newStep = `
+        <label>Step ${stepCount} Title</label>
+        <input type="text" name="howToBuyTitle" placeholder="Enter step title">
+
+        <label>Step ${stepCount} Description</label>
+        <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
+      `;
+      howToBuySection.insertAdjacentHTML('beforeend', newStep);
     }
 
-    subdomainInput.addEventListener('input', updateSubdomainPreview);
-    domainExtension.addEventListener('change', updateSubdomainPreview);
+    function addFaqItem() {
+      const faqSection = document.getElementById("faqSection");
+      const faqCount = faqSection.querySelectorAll("input").length + 1;
+      const newFaq = `
+        <div>
+          <label for="faqQuestion${faqCount}">FAQ Question ${faqCount}</label>
+          <input type="text" id="faqQuestion${faqCount}" placeholder="Enter question">
+          <label for="faqAnswer${faqCount}">FAQ Answer ${faqCount}</label>
+          <textarea id="faqAnswer${faqCount}" rows="3" placeholder="Enter answer"></textarea>
+        </div>
+      `;
+      faqSection.insertAdjacentHTML('beforeend', newFaq);
+    }
 
-    // Initialize the preview on load
-    updateSubdomainPreview();
+    function addRoadmapItem() {
+      const roadmapSection = document.getElementById("roadmapSection");
+      const roadmapCount = roadmapSection.querySelectorAll("input").length + 1;
+      const newRoadmap = `
+        <label>Roadmap Item Title ${roadmapCount}</label>
+        <input type="text" name="roadmapTitle" placeholder="Enter roadmap title">
+
+        <label>Roadmap Item Description ${roadmapCount}</label>
+        <textarea name="roadmapDescription" rows="3" placeholder="Enter roadmap description"></textarea>
+      `;
+      roadmapSection.insertAdjacentHTML('beforeend', newRoadmap);
+    }
+
+    function selectTheme(theme) {
+      document.body.setAttribute("data-theme", theme);
+    }
   </script>
 </body>
 </html>

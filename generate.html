@@ -8,6 +8,7 @@
 </head>
 <body>
   <div class="container">
+    <img src="degen-coin.png" alt="Website Logo" style="display: block; margin: 0 auto 1rem; max-width: 150px;">
     <h1>Memecoin Website Generator</h1>
     <p class="section-description">Easily create your memecoin project website with this generator. Fill in the required fields, customize your site, and generate it in minutes.</p>
 
@@ -68,6 +69,27 @@
         <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
       </div>
       <button type="button" class="add-button" onclick="addHowToBuyStep()">Add Step</button>
+
+      <h2>Social Links</h2>
+      <p class="section-description">Add your social links to display them on the site.</p>
+      <label for="telegramLink">Telegram Link</label>
+      <input type="url" id="telegramLink" placeholder="Enter Telegram link">
+
+      <label for="discordLink">Discord Link</label>
+      <input type="url" id="discordLink" placeholder="Enter Discord link">
+
+      <label for="xLink">X (Twitter) Link</label>
+      <input type="url" id="xLink" placeholder="Enter X (Twitter) link">
+
+      <label for="dexScreenerLink">DEXScreener Link</label>
+      <input type="url" id="dexScreenerLink" placeholder="Enter DEXScreener link">
+
+      <div class="social-grid">
+        <a href="#" id="telegramDisplay" class="social-link">Telegram</a>
+        <a href="#" id="discordDisplay" class="social-link">Discord</a>
+        <a href="#" id="xDisplay" class="social-link">X</a>
+        <a href="#" id="dexScreenerDisplay" class="social-link">DEXScreener</a>
+      </div>
 
       <h2>Roadmap</h2>
       <div class="switch-container">
@@ -178,6 +200,10 @@
         <textarea name="roadmapDescription" rows="3" placeholder="Enter roadmap description"></textarea>
       `;
       roadmapSection.insertAdjacentHTML('beforeend', newRoadmap);
+    }
+
+    function selectTheme(theme) {
+      document.body.setAttribute("data-theme", theme);
     }
   </script>
 </body>

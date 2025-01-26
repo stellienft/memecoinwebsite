@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react@0.12.0/lib/index.iife.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-base@0.8.5/lib/index.iife.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react-ui@0.9.0/lib/index.iife.min.js"></script>
-  <link rel="stylesheet" href="generate/styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
@@ -37,7 +37,7 @@
 
       <h2>How to Buy</h2>
       <div class="checkbox-group">
-        <button type="button" id="useDefaultHowToBuy" onclick="toggleDefaultHowToBuy(this)">Use Default How to Buy</button>
+        <button type="button" id="useDefaultHowToBuy" class="filled-button" onclick="toggleDefaultHowToBuy(this)">Use Default How to Buy</button>
       </div>
       <div id="howToBuySection">
         <label>Step 1 Title</label>
@@ -46,7 +46,7 @@
         <label>Step 1 Description</label>
         <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
       </div>
-      <button type="button" class="add-button" onclick="addHowToBuyStep()">Add Step</button>
+      <button type="button" class="filled-button add-button" onclick="addHowToBuyStep()">Add Step</button>
 
       <h2>Roadmap</h2>
       <div id="roadmapSection">
@@ -56,11 +56,11 @@
         <label>Roadmap Item Description</label>
         <textarea name="roadmapDescription" rows="3" placeholder="Enter roadmap description"></textarea>
       </div>
-      <button type="button" class="add-button" onclick="addRoadmapItem()">Add Roadmap Item</button>
+      <button type="button" class="filled-button add-button" onclick="addRoadmapItem()">Add Roadmap Item</button>
 
       <h2>FAQ Section</h2>
       <div class="checkbox-group">
-        <button type="button" id="enableFaq" onclick="toggleFaqSection(this)">Disable FAQ Section</button>
+        <button type="button" id="enableFaq" class="filled-button" onclick="toggleFaqSection(this)">Disable FAQ Section</button>
       </div>
       <div id="faqSection">
         <div>
@@ -69,7 +69,7 @@
           <label for="faqAnswer1">FAQ Answer 1</label>
           <textarea id="faqAnswer1" rows="3" placeholder="Enter answer"></textarea>
         </div>
-        <button type="button" class="add-button" onclick="addFaqItem()">Add FAQ</button>
+        <button type="button" class="filled-button add-button" onclick="addFaqItem()">Add FAQ</button>
       </div>
 
       <h2>Theme Selection</h2>
@@ -84,14 +84,14 @@
         <div class="swatch" data-theme="light-purple" onclick="selectTheme('light-purple')"></div>
       </div>
 
+      <h2>Generated Subdomain</h2>
+      <p id="generatedDomain" style="font-weight: bold;">example.memecoinwebsites.io</p>
+
       <div class="cost-section">
         Custom Memecoin Website Cost: 0.5 SOL
       </div>
 
-      <h2>Generated Subdomain</h2>
-      <p id="generatedDomain" style="text-align: center; font-weight: bold;">example.memecoinwebsites.io</p>
-
-      <button type="submit">Create Website</button>
+      <button type="submit" class="filled-button">Create Website</button>
     </form>
   </div>
 

@@ -3,78 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Memecoin Template Editor</title>
-  <style>
-    :root {
-      --background-dark: #1e1e2f;
-      --primary-color: #9945ff;
-      --text-light: #ffffff;
-      --border-radius: 12px;
-      --font-family: 'Inter', sans-serif;
-    }
-    body {
-      margin: 0;
-      font-family: var(--font-family);
-      background-color: var(--background-dark);
-      color: var(--text-light);
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background-color: #2a2a3c;
-      border-radius: var(--border-radius);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    h1 {
-      text-align: center;
-      color: var(--primary-color);
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    label {
-      font-weight: bold;
-    }
-    input, textarea, select, button {
-      width: 100%;
-      padding: 0.75rem;
-      border: none;
-      border-radius: var(--border-radius);
-      font-size: 1rem;
-      margin-top: 0.5rem;
-    }
-    textarea {
-      resize: vertical;
-    }
-    button {
-      background-color: var(--primary-color);
-      color: var(--text-light);
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    button:hover {
-      background-color: #7a3ce2;
-    }
-    .add-button {
-      margin-top: 1rem;
-      align-self: flex-start;
-    }
-    .dynamic-section {
-      margin-bottom: 2rem;
-    }
-  </style>
+  <title>Memecoin Website Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.41.3/lib/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-wallets@0.8.5/lib/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react@0.12.0/lib/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-base@0.8.5/lib/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/wallet-adapter-react-ui@0.9.0/lib/index.iife.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Memecoin Template Editor</h1>
+    <h1>Memecoin Website Generator</h1>
+
+    <div class="wallet-connect">
+      <button id="connectWallet" class="button">Connect Wallet</button>
+      <p id="walletStatus" style="margin-left: 1rem; font-weight: bold;"></p>
+    </div>
+
     <form id="templateForm">
       <h2>Basic Information</h2>
       <label for="projectName">Project Name</label>
-      <input type="text" id="projectName" placeholder="Enter your project name" required>
+      <input type="text" id="projectName" placeholder="Enter your project name" required oninput="updateSubdomain()">
 
       <label for="projectDescription">Project Description</label>
       <textarea id="projectDescription" rows="4" placeholder="Enter a brief description" required></textarea>
@@ -83,64 +32,150 @@
       <input type="text" id="contractAddress" placeholder="Enter contract address" required>
 
       <label for="logoUpload">Upload Logo</label>
-      <input type="file" id="logoUpload" accept="image/*" required>
-
-      <h2>About Section</h2>
-      <label for="aboutTitle">Title</label>
-      <input type="text" id="aboutTitle" placeholder="Enter title for About section" required>
-
-      <label for="aboutDescription">Description</label>
-      <textarea id="aboutDescription" rows="4" placeholder="Enter description for About section" required></textarea>
-
-      <label for="aboutImage">Upload Image</label>
-      <input type="file" id="aboutImage" accept="image/*" required>
+      <div class="upload" onclick="document.getElementById('logoUpload').click()">Click to Upload Logo</div>
+      <input type="file" id="logoUpload" accept="image/*" style="display: none;" required>
 
       <h2>How to Buy</h2>
-      <div id="howToBuySection" class="dynamic-section">
+      <div class="checkbox-group">
+        <button type="button" id="useDefaultHowToBuy" onclick="toggleDefaultHowToBuy(this)">Use Default How to Buy</button>
+      </div>
+      <div id="howToBuySection">
         <label>Step 1 Title</label>
         <input type="text" name="howToBuyTitle" placeholder="Enter step title">
+
         <label>Step 1 Description</label>
         <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
       </div>
       <button type="button" class="add-button" onclick="addHowToBuyStep()">Add Step</button>
 
       <h2>Roadmap</h2>
-      <div id="roadmapSection" class="dynamic-section">
+      <div id="roadmapSection">
         <label>Roadmap Item Title</label>
         <input type="text" name="roadmapTitle" placeholder="Enter roadmap title">
+
         <label>Roadmap Item Description</label>
         <textarea name="roadmapDescription" rows="3" placeholder="Enter roadmap description"></textarea>
       </div>
       <button type="button" class="add-button" onclick="addRoadmapItem()">Add Roadmap Item</button>
 
-      <h2>FAQs</h2>
-      <div id="faqSection" class="dynamic-section">
-        <label>FAQ Question</label>
-        <input type="text" name="faqQuestion" placeholder="Enter question">
-        <label>FAQ Answer</label>
-        <textarea name="faqAnswer" rows="3" placeholder="Enter answer"></textarea>
+      <h2>FAQ Section</h2>
+      <div class="checkbox-group">
+        <button type="button" id="enableFaq" onclick="toggleFaqSection(this)">Disable FAQ Section</button>
       </div>
-      <button type="button" class="add-button" onclick="addFAQItem()">Add FAQ</button>
+      <div id="faqSection">
+        <div>
+          <label for="faqQuestion1">FAQ Question 1</label>
+          <input type="text" id="faqQuestion1" placeholder="Enter question">
+          <label for="faqAnswer1">FAQ Answer 1</label>
+          <textarea id="faqAnswer1" rows="3" placeholder="Enter answer"></textarea>
+        </div>
+        <button type="button" class="add-button" onclick="addFaqItem()">Add FAQ</button>
+      </div>
 
       <h2>Theme Selection</h2>
-      <label for="themeSelection">Choose a Theme</label>
-      <select id="themeSelection">
-        <option value="dark-orange">Dark and Orange</option>
-        <option value="dark-green">Dark and Green</option>
-        <option value="dark-blue">Dark and Blue</option>
-      </select>
+      <div class="swatch-container">
+        <div class="swatch" data-theme="dark-orange" onclick="selectTheme('dark-orange')"></div>
+        <div class="swatch" data-theme="dark-green" onclick="selectTheme('dark-green')"></div>
+        <div class="swatch" data-theme="dark-blue" onclick="selectTheme('dark-blue')"></div>
+        <div class="swatch" data-theme="dark-purple" onclick="selectTheme('dark-purple')"></div>
+        <div class="swatch" data-theme="light-orange" onclick="selectTheme('light-orange')"></div>
+        <div class="swatch" data-theme="light-green" onclick="selectTheme('light-green')"></div>
+        <div class="swatch" data-theme="light-blue" onclick="selectTheme('light-blue')"></div>
+        <div class="swatch" data-theme="light-purple" onclick="selectTheme('light-purple')"></div>
+      </div>
+
+      <div class="cost-section">
+        Custom Memecoin Website Cost: 0.5 SOL
+      </div>
+
+      <h2>Generated Subdomain</h2>
+      <p id="generatedDomain" style="text-align: center; font-weight: bold;">example.memecoinwebsites.io</p>
 
       <button type="submit">Create Website</button>
     </form>
   </div>
 
   <script>
+    async function connectWallet() {
+      const { SolanaWalletAdapter } = solanaWalletAdapterWallets;
+      const adapter = new SolanaWalletAdapter();
+      try {
+        await adapter.connect();
+        document.getElementById("walletStatus").textContent = `Connected: ${adapter.publicKey.toString()}`;
+      } catch (error) {
+        console.error("Failed to connect wallet:", error);
+      }
+    }
+
+    document.getElementById("connectWallet").addEventListener("click", connectWallet);
+
+    function toggleDefaultHowToBuy(button) {
+      const section = document.getElementById('howToBuySection');
+      if (button.textContent === 'Use Default How to Buy') {
+        section.innerHTML = `
+          <label>Step 1 Title</label>
+          <input type="text" name="howToBuyTitle" value="Create a Phantom Wallet">
+
+          <label>Step 1 Description</label>
+          <textarea name="howToBuyDescription" rows="3">To create a Solana Phantom wallet, download the Phantom extension for your browser, follow the setup instructions, generate a new wallet, securely store your recovery phrase, and you’re ready to manage Solana assets.</textarea>
+
+          <label>Step 2 Title</label>
+          <input type="text" name="howToBuyTitle" value="Purchase Some SOL">
+
+          <label>Step 2 Description</label>
+          <textarea name="howToBuyDescription" rows="3">To buy SOL, first create an account on a cryptocurrency exchange supporting Solana, deposit funds, trade for SOL tokens, withdraw to your Solana wallet address, and confirm the transfer.</textarea>
+
+          <label>Step 3 Title</label>
+          <input type="text" name="howToBuyTitle" value="Go to Raydium">
+
+          <label>Step 3 Description</label>
+          <textarea name="howToBuyDescription" rows="3">Use Raydium or Phantom wallet to swap $SOL to your desired token instantly.</textarea>
+
+          <label>Step 4 Title</label>
+          <input type="text" name="howToBuyTitle" value="Swap SOL">
+
+          <label>Step 4 Description</label>
+          <textarea name="howToBuyDescription" rows="3">To purchase your token using Raydium, connect your Solana wallet, navigate to the trading pair, enter the desired amount, confirm the transaction, and receive your tokens in your wallet.</textarea>
+        `;
+        button.textContent = 'Remove Default How to Buy';
+      } else {
+        section.innerHTML = '';
+        button.textContent = 'Use Default How to Buy';
+      }
+    }
+
+    function toggleFaqSection(button) {
+      const faqSection = document.getElementById("faqSection");
+      if (button.textContent === 'Disable FAQ Section') {
+        faqSection.style.display = "none";
+        button.textContent = 'Enable FAQ Section';
+      } else {
+        faqSection.style.display = "block";
+        button.textContent = 'Disable FAQ Section';
+      }
+    }
+
+    function addFaqItem() {
+      const faqSection = document.getElementById("faqSection");
+      const faqCount = faqSection.querySelectorAll("input").length / 2 + 1;
+      const newFaq = `
+        <div>
+          <label for="faqQuestion${faqCount}">FAQ Question ${faqCount}</label>
+          <input type="text" id="faqQuestion${faqCount}" placeholder="Enter question">
+          <label for="faqAnswer${faqCount}">FAQ Answer ${faqCount}</label>
+          <textarea id="faqAnswer${faqCount}" rows="3" placeholder="Enter answer"></textarea>
+        </div>
+      `;
+      faqSection.insertAdjacentHTML("beforeend", newFaq);
+    }
+
     function addHowToBuyStep() {
       const section = document.getElementById('howToBuySection');
-      const stepCount = section.childElementCount / 2 + 1;
+      const stepCount = section.querySelectorAll("input").length / 2 + 1;
       const newStep = `
         <label>Step ${stepCount} Title</label>
         <input type="text" name="howToBuyTitle" placeholder="Enter step title">
+
         <label>Step ${stepCount} Description</label>
         <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
       `;
@@ -152,55 +187,26 @@
       const newItem = `
         <label>Roadmap Item Title</label>
         <input type="text" name="roadmapTitle" placeholder="Enter roadmap title">
+
         <label>Roadmap Item Description</label>
         <textarea name="roadmapDescription" rows="3" placeholder="Enter roadmap description"></textarea>
       `;
       section.insertAdjacentHTML('beforeend', newItem);
     }
 
-    function addFAQItem() {
-      const section = document.getElementById('faqSection');
-      const newFAQ = `
-        <label>FAQ Question</label>
-        <input type="text" name="faqQuestion" placeholder="Enter question">
-        <label>FAQ Answer</label>
-        <textarea name="faqAnswer" rows="3" placeholder="Enter answer"></textarea>
-      `;
-      section.insertAdjacentHTML('beforeend', newFAQ);
+    function updateSubdomain() {
+      const projectName = document.getElementById("projectName").value.trim();
+      const subdomain = projectName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      document.getElementById("generatedDomain").textContent = `${subdomain || "example"}.memecoinwebsites.io`;
+    }
+
+    function selectTheme(theme) {
+      alert(`Theme selected: ${theme}`);
     }
 
     document.getElementById('templateForm').addEventListener('submit', function(e) {
       e.preventDefault();
-
-      // Collect user input
-      const formData = new FormData(e.target);
-      const theme = formData.get('themeSelection');
-      const projectName = formData.get('projectName');
-      const projectDescription = formData.get('projectDescription');
-      const contractAddress = formData.get('contractAddress');
-      const aboutTitle = formData.get('aboutTitle');
-      const aboutDescription = formData.get('aboutDescription');
-
-      // Dynamically generate the HTML template
-      const websiteHTML = `<!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <title>${projectName}</title>
-      </head>
-      <body>
-        <h1>${projectName}</h1>
-        <p>${projectDescription}</p>
-        <p>Contract Address: ${contractAddress}</p>
-        <h2>${aboutTitle}</h2>
-        <p>${aboutDescription}</p>
-      </body>
-      </html>`;
-
-      // Open the generated HTML in a new tab
-      const newWindow = window.open();
-      newWindow.document.write(websiteHTML);
-      newWindow.document.close();
+      alert('Website successfully created!');
     });
   </script>
 </body>

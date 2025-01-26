@@ -17,51 +17,19 @@
       <p id="walletStatus" style="margin-left: 1rem; font-weight: bold;"></p>
     </div>
 
-<div class="domain-input-container" style="background-color: #1e1e2f; padding: 1rem; border-radius: 12px; margin-top: 1rem;">
-  <input type="text" id="customSubdomain" placeholder="Enter your subdomain" style="width: 100%; padding: 0.75rem; border: 1px solid #6a0dad; background-color: #2a2a3c; color: #ffffff; font-size: 1.2rem; border-radius: 8px; margin-bottom: 1rem;">
-  <select id="domainExtension" style="width: 100%; padding: 0.75rem; background-color: #2e2e3f; color: #ffffff; border: 1px solid #6a0dad; border-radius: 8px; font-size: 1.2rem;">
-    <option value="memecoin.site">memecoin.site</option>
-    <option value="memeonsolana.xyz">memeonsolana.xyz</option>
-    <option value="memesonsol.xyz">memesonsol.xyz</option>
-    <option value="solanamemes.xyz">solanamemes.xyz</option>
-  </select>
-</div>
-    
-<script>
-  const subdomainInput = document.getElementById('customSubdomain');
-  const domainExtension = document.getElementById('domainExtension');
+    <div class="domain-input-container" style="background-color: #1e1e2f; padding: 1rem; border-radius: 12px; margin-top: 1rem;">
+      <input type="text" id="customSubdomain" placeholder="Enter your subdomain" style="width: 100%; padding: 0.75rem; border: 1px solid #6a0dad; background-color: #2a2a3c; color: #ffffff; font-size: 1.2rem; border-radius: 8px; margin-bottom: 1rem;">
+      <select id="domainExtension" style="width: 100%; padding: 0.75rem; background-color: #2e2e3f; color: #ffffff; border: 1px solid #6a0dad; border-radius: 8px; font-size: 1.2rem;">
+        <option value="memecoin.site">memecoin.site</option>
+        <option value="memeonsolana.xyz">memeonsolana.xyz</option>
+        <option value="memesonsol.xyz">memesonsol.xyz</option>
+        <option value="solanamemes.xyz">solanamemes.xyz</option>
+      </select>
+    </div>
 
-  async function updateSubdomainPreview() {
-    const subdomain = subdomainInput.value.trim();
-    const extension = domainExtension.value;
-    const fullSubdomain = subdomain ? `${subdomain}.${extension}` : '';
-
-    if (!subdomain) {
-      subdomainInput.style.borderColor = '#6a0dad'; // Default border
-      return;
-    }
-
-    const isAvailable = await fakeDomainCheck(subdomain, extension);
-
-    if (isAvailable) {
-      subdomainInput.style.borderColor = 'green'; // Green border for available domain
-    } else {
-      subdomainInput.style.borderColor = 'red'; // Red border for taken domain
-    }
-  }
-
-  async function fakeDomainCheck(subdomain, extension) {
-    // Replace with actual API call if needed
-    const takenDomains = ['example.memecoin.site', 'test.memeonsolana.xyz'];
-    return !takenDomains.includes(`${subdomain}.${extension}`);
-  }
-
-  subdomainInput.addEventListener('input', updateSubdomainPreview);
-  domainExtension.addEventListener('change', updateSubdomainPreview);
-
-  // Initialize the preview on load
-  updateSubdomainPreview();
-</script>
+    <div id="completedDomainContainer" style="background-color: #1e1e2f; padding: 0.5rem; border-radius: 12px; margin-top: 1rem; text-align: center;">
+      <p id="completedDomain" style="font-size: 1.2rem; color: #6a0dad; font-weight: bold; margin: 0;">your-domain.memecoin.site</p>
+    </div>
 
     <form id="templateForm">
       <h2 style="margin-bottom: 1rem;">Basic Information</h2>
@@ -75,6 +43,9 @@
 
       <label for="contractAddress">Contract Address</label>
       <input type="text" id="contractAddress" placeholder="Enter contract address" required>
+
+      <label for="buyNowLink">Buy Now Button Link</label>
+      <input type="url" id="buyNowLink" placeholder="Enter a DEX link for Buy Now button" required>
 
       <label for="logoUpload">Upload Logo</label>
       <div class="upload" onclick="document.getElementById('logoUpload').click()">Click to Upload Logo</div>
@@ -165,75 +136,12 @@
         <button type="button" class="add-button" onclick="addFaqItem()">Add FAQ</button>
       </div>
 
-      <h2>Your Project Domain</h2>
-      <div class="domain-input-container" style="background-color: #1e1e2f; padding: 1rem; border-radius: 12px; display: flex; align-items: center;">
-        <span style="color: #ffffff; font-size: 1.2rem;">your-domain.memecoinwebsites.io</span>
-      </div>
+     <div class="cost-section" style="background-color: #d4f7d4; padding: 0.5rem 1rem; border-radius: 8px; text-align: center; margin-top: 1rem;">
+  <p style="font-size: 1rem; color: #000000; font-weight: bold; margin: 0;">Custom Memecoin Website Cost: 0.1 SOL</p>
+</div>
 
-      <div class="cost-section">
-        Custom Memecoin Website Cost: 0.1 SOL
-      </div>
+<button type="submit" class="filled-button" style="margin-bottom: 2rem;">Create Website</button>
 
-      <button type="submit" class="filled-button" style="margin-bottom: 2rem;">Create Website</button>
-    </form>
-  </div>
-
-  <script>
-    async function connectWallet() {
-      const adapter = new SolanaWalletAdapter();
-      try {
-        await adapter.connect();
-        document.getElementById("walletStatus").textContent = `Connected: ${adapter.publicKey.toString()}`;
-      } catch (error) {
-        console.error("Failed to connect wallet:", error);
-      }
-    }
-
-    document.getElementById("connectWallet").addEventListener("click", connectWallet);
-
-    function addHowToBuyStep() {
-      const howToBuySection = document.getElementById("howToBuySection");
-      const stepCount = howToBuySection.querySelectorAll("input").length / 2 + 1;
-      const newStep = `
-        <label>Step ${stepCount} Title</label>
-        <input type="text" name="howToBuyTitle" placeholder="Enter step title">
-
-        <label>Step ${stepCount} Description</label>
-        <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
-      `;
-      howToBuySection.insertAdjacentHTML('beforeend', newStep);
-    }
-
-    function addFaqItem() {
-      const faqSection = document.getElementById("faqSection");
-      const faqCount = faqSection.querySelectorAll("input").length + 1;
-      const newFaq = `
-        <div>
-          <label for="faqQuestion${faqCount}">FAQ Question ${faqCount}</label>
-          <input type="text" id="faqQuestion${faqCount}" placeholder="Enter question">
-          <label for="faqAnswer${faqCount}">FAQ Answer ${faqCount}</label>
-          <textarea id="faqAnswer${faqCount}" rows="3" placeholder="Enter answer"></textarea>
-        </div>
-      `;
-      faqSection.insertAdjacentHTML('beforeend', newFaq);
-    }
-
-    function addRoadmapItem() {
-      const roadmapSection = document.getElementById("roadmapSection");
-      const roadmapCount = roadmapSection.querySelectorAll("input").length + 1;
-      const newRoadmap = `
-        <label>Roadmap Item Title ${roadmapCount}</label>
-        <input type="text" name="roadmapTitle" placeholder="Enter roadmap title">
-
-        <label>Roadmap Item Description ${roadmapCount}</label>
-        <textarea name="roadmapDescription" rows="3" placeholder="Enter roadmap description"></textarea>
-      `;
-      roadmapSection.insertAdjacentHTML('beforeend', newRoadmap);
-    }
-
-    function selectTheme(theme) {
-      document.body.setAttribute("data-theme", theme);
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

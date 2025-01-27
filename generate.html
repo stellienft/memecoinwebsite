@@ -14,19 +14,54 @@
       <h1>Memecoin Website Generator</h1>
       <p class="section-description">Easily create your memecoin project website with this generator. Fill in the required fields, customize your site, and generate it in minutes.</p>
 
-      <!-- Subdomain Section -->
-      <div class="section-container">
-        <h2>Subdomain</h2>
-        <label for="customSubdomain">Enter Subdomain</label>
-        <input type="text" id="customSubdomain" placeholder="Enter your subdomain">
-        <label for="domainExtension">Select Domain</label>
-        <select id="domainExtension">
-          <option value="memecoin.site">memecoin.site</option>
-          <option value="memeonsolana.xyz">memeonsolana.xyz</option>
-          <option value="memesonsol.xyz">memesonsol.xyz</option>
-          <option value="solanamemes.xyz">solanamemes.xyz</option>
-        </select>
+    <!-- Subdomain Section -->
+<div class="section-container">
+  <h2>Subdomain</h2>
+  <label for="customSubdomain">Enter Subdomain</label>
+  <input type="text" id="customSubdomain" placeholder="Enter your subdomain">
+  <label for="domainExtension">Select Domain</label>
+  <select id="domainExtension">
+    <option value="memecoin.site">memecoin.site</option>
+    <option value="memeonsolana.xyz">memeonsolana.xyz</option>
+    <option value="memesonsol.xyz">memesonsol.xyz</option>
+    <option value="solanamemes.xyz">solanamemes.xyz</option>
+  </select>
+</div>
+
+<!-- Theme Selection Section -->
+<div class="section-container">
+  <h2>Theme Selection</h2>
+
+  <!-- Hero Section Gradient -->
+  <div class="theme-gradient">
+    <h3>Hero Section Gradient</h3>
+    <div class="gradient-selectors">
+      <div class="gradient-picker">
+        <label for="gradient1">Gradient 1</label>
+        <input type="color" id="gradient1" value="#6a0dad">
       </div>
+      <div class="gradient-picker">
+        <label for="gradient2">Gradient 2</label>
+        <input type="color" id="gradient2" value="#14f195">
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme Swatches -->
+  <div class="theme-swatches">
+    <h3>Site Theme</h3>
+    <div class="swatches">
+      <div class="swatch" id="dark-purple" title="Dark/Purple" style="background: linear-gradient(90deg, #1e1e2f 50%, #6a0dad 50%);"></div>
+      <div class="swatch" id="dark-orange" title="Dark/Orange" style="background: linear-gradient(90deg, #1e1e2f 50%, #ff7f11 50%);"></div>
+      <div class="swatch" id="dark-green" title="Dark/Green" style="background: linear-gradient(90deg, #1e1e2f 50%, #14f195 50%);"></div>
+      <div class="swatch" id="dark-blue" title="Dark/Blue" style="background: linear-gradient(90deg, #1e1e2f 50%, #0077ff 50%);"></div>
+      <div class="swatch" id="light-purple" title="Light/Purple" style="background: linear-gradient(90deg, #ffffff 50%, #6a0dad 50%);"></div>
+      <div class="swatch" id="light-orange" title="Light/Orange" style="background: linear-gradient(90deg, #ffffff 50%, #ff7f11 50%);"></div>
+      <div class="swatch" id="light-green" title="Light/Green" style="background: linear-gradient(90deg, #ffffff 50%, #14f195 50%);"></div>
+      <div class="swatch" id="light-blue" title="Light/Blue" style="background: linear-gradient(90deg, #ffffff 50%, #0077ff 50%);"></div>
+    </div>
+  </div>
+</div>
 
       <!-- Basic Information Section -->
       <div class="section-container">

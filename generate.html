@@ -26,6 +26,7 @@
     <option value="memesonsol.xyz">memesonsol.xyz</option>
     <option value="solanamemes.xyz">solanamemes.xyz</option>
   </select>
+  <div id="domainStatus" class="domain-status"></div>
 </div>
 
 <!-- Theme Selection Section -->
@@ -33,33 +34,25 @@
   <h2>Theme Selection</h2>
 
   <!-- Hero Section Gradient -->
-  <div class="theme-gradient">
-    <h3>Hero Section Gradient</h3>
-    <div class="gradient-selectors">
-      <div class="gradient-picker">
-        <label for="gradient1">Gradient 1</label>
-        <input type="color" id="gradient1" value="#6a0dad">
-      </div>
-      <div class="gradient-picker">
-        <label for="gradient2">Gradient 2</label>
-        <input type="color" id="gradient2" value="#14f195">
-      </div>
+  <div class="gradient-picker">
+    <label for="gradient1" style="text-align: left;">Hero Section Gradient</label>
+    <div class="gradient-colors">
+      <input type="color" id="gradient1" class="gradient-swatch" value="#6a0dad" title="Gradient Color 1">
+      <input type="color" id="gradient2" class="gradient-swatch" value="#14f195" title="Gradient Color 2">
     </div>
   </div>
 
-  <!-- Theme Swatches -->
-  <div class="theme-swatches">
-    <h3>Site Theme</h3>
-    <div class="swatches">
-      <div class="swatch" id="dark-purple" title="Dark/Purple" style="background: linear-gradient(90deg, #1e1e2f 50%, #6a0dad 50%);"></div>
-      <div class="swatch" id="dark-orange" title="Dark/Orange" style="background: linear-gradient(90deg, #1e1e2f 50%, #ff7f11 50%);"></div>
-      <div class="swatch" id="dark-green" title="Dark/Green" style="background: linear-gradient(90deg, #1e1e2f 50%, #14f195 50%);"></div>
-      <div class="swatch" id="dark-blue" title="Dark/Blue" style="background: linear-gradient(90deg, #1e1e2f 50%, #0077ff 50%);"></div>
-      <div class="swatch" id="light-purple" title="Light/Purple" style="background: linear-gradient(90deg, #ffffff 50%, #6a0dad 50%);"></div>
-      <div class="swatch" id="light-orange" title="Light/Orange" style="background: linear-gradient(90deg, #ffffff 50%, #ff7f11 50%);"></div>
-      <div class="swatch" id="light-green" title="Light/Green" style="background: linear-gradient(90deg, #ffffff 50%, #14f195 50%);"></div>
-      <div class="swatch" id="light-blue" title="Light/Blue" style="background: linear-gradient(90deg, #ffffff 50%, #0077ff 50%);"></div>
-    </div>
+  <!-- Colour Scheme -->
+  <h3>Colour Scheme</h3>
+  <div class="site-theme">
+    <div class="theme-swatch theme-dark-purple" data-theme="dark-purple" title="Dark / Purple"></div>
+    <div class="theme-swatch theme-dark-orange" data-theme="dark-orange" title="Dark / Orange"></div>
+    <div class="theme-swatch theme-dark-green" data-theme="dark-green" title="Dark / Green"></div>
+    <div class="theme-swatch theme-dark-blue" data-theme="dark-blue" title="Dark / Blue"></div>
+    <div class="theme-swatch theme-light-purple" data-theme="light-purple" title="Light / Purple"></div>
+    <div class="theme-swatch theme-light-orange" data-theme="light-orange" title="Light / Orange"></div>
+    <div class="theme-swatch theme-light-green" data-theme="light-green" title="Light / Green"></div>
+    <div class="theme-swatch theme-light-blue" data-theme="light-blue" title="Light / Blue"></div>
   </div>
 </div>
 

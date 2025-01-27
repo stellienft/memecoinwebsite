@@ -15,13 +15,39 @@ document.addEventListener("DOMContentLoaded", () => {
     { title: "Swap SOL", description: "Use the DEX to swap SOL for your memecoin." },
   ];
 
+  // Gradient Pickers
+  const gradient1Picker = document.getElementById("gradient1");
+  const gradient2Picker = document.getElementById("gradient2");
+  const previewHero = document.querySelector(".preview-hero");
+
+  gradient1Picker.addEventListener("input", updateHeroGradient);
+  gradient2Picker.addEventListener("input", updateHeroGradient);
+
+  function updateHeroGradient() {
+    const gradient1 = gradient1Picker.value;
+    const gradient2 = gradient2Picker.value;
+    previewHero.style.background = `linear-gradient(135deg, ${gradient1}, ${gradient2})`;
+  }
+
+  // Site Theme Swatches
+  const themeSwatches = document.querySelectorAll(".theme-swatch");
+  const body = document.body;
+
+  themeSwatches.forEach((swatch) => {
+    swatch.addEventListener("click", () => {
+      const themeClass = swatch.getAttribute("data-theme");
+      body.className = ""; // Clear existing themes
+      body.classList.add(themeClass);
+    });
+  });
+
   // FAQ Section
   const faqSection = document.getElementById("faqSection");
   const useDefaultFaqCheckbox = document.getElementById("useDefaultFaq");
   const addFaqButton = document.getElementById("addFaqItem");
 
   function addFaqItem(question = "", answer = "") {
-    const faqCount = faqSection.querySelectorAll(".faq-item").length + 1;
+    const faqCount = faqSection.querySelectorAll("textarea").length + 1;
 
     const faqContainer = document.createElement("div");
     faqContainer.classList.add("faq-item");
@@ -143,51 +169,47 @@ document.addEventListener("DOMContentLoaded", () => {
   addRoadmapButton.addEventListener("click", () => addRoadmapItem());
 });
 
-// Theme Selection
-document.querySelectorAll(".swatch").forEach((swatch) => {
-  swatch.addEventListener("click", (e) => {
-    const id = e.target.id;
+document.addEventListener("DOMContentLoaded", () => {
+  const subdomainInput = document.getElementById("customSubdomain");
+  const domainExtensionSelect = document.getElementById("domainExtension");
+  const domainStatus = document.getElementById("domainStatus");
 
-    switch (id) {
-      case "dark-purple":
-        document.documentElement.style.setProperty("--primary-color", "#6a0dad");
-        break;
-      case "dark-orange":
-        document.documentElement.style.setProperty("--primary-color", "#ff7f11");
-        break;
-      case "dark-green":
-        document.documentElement.style.setProperty("--primary-color", "#14f195");
-        break;
-      case "dark-blue":
-        document.documentElement.style.setProperty("--primary-color", "#0077ff");
-        break;
-      case "light-purple":
-        document.documentElement.style.setProperty("--background-dark", "#ffffff");
-        document.documentElement.style.setProperty("--primary-color", "#6a0dad");
-        break;
-      case "light-orange":
-        document.documentElement.style.setProperty("--background-dark", "#ffffff");
-        document.documentElement.style.setProperty("--primary-color", "#ff7f11");
-        break;
-      case "light-green":
-        document.documentElement.style.setProperty("--background-dark", "#ffffff");
-        document.documentElement.style.setProperty("--primary-color", "#14f195");
-        break;
-      case "light-blue":
-        document.documentElement.style.setProperty("--background-dark", "#ffffff");
-        document.documentElement.style.setProperty("--primary-color", "#0077ff");
-        break;
+  // Simulated API for domain availability check
+  const takenDomains = ["example.memecoin.site", "test.memeonsolana.xyz"];
+
+  function checkDomainAvailability(subdomain, extension) {
+    const fullDomain = `${subdomain}.${extension}`;
+    return !takenDomains.includes(fullDomain);
+  }
+
+  function updateDomainStatus() {
+    const subdomain = subdomainInput.value.trim();
+    const extension = domainExtensionSelect.value;
+
+    if (!subdomain) {
+      domainStatus.innerHTML = "";
+      return;
     }
-  });
+
+    const fullDomain = `${subdomain}.${extension}`;
+    const isAvailable = checkDomainAvailability(subdomain, extension);
+
+    if (isAvailable) {
+      domainStatus.innerHTML = `
+        <span class="available">✔</span> <span>${fullDomain}</span>
+      `;
+      domainStatus.classList.remove("taken");
+      domainStatus.classList.add("available");
+    } else {
+      domainStatus.innerHTML = `
+        <span class="taken">✖</span> <span>${fullDomain}</span>
+      `;
+      domainStatus.classList.remove("available");
+      domainStatus.classList.add("taken");
+    }
+  }
+
+  subdomainInput.addEventListener("input", updateDomainStatus);
+  domainExtensionSelect.addEventListener("change", updateDomainStatus);
 });
 
-// Hero Gradient Update
-document.getElementById("gradient1").addEventListener("change", updateGradient);
-document.getElementById("gradient2").addEventListener("change", updateGradient);
-
-function updateGradient() {
-  const gradient1 = document.getElementById("gradient1").value;
-  const gradient2 = document.getElementById("gradient2").value;
-
-  document.querySelector(".preview-hero").style.background = `linear-gradient(135deg, ${gradient1}, ${gradient2})`;
-}

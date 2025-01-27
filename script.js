@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const addFaqButton = document.getElementById("addFaqItem");
 
   function addFaqItem(question = "", answer = "") {
-    const faqCount = faqSection.querySelectorAll("textarea").length + 1;
+    const faqCount = faqSection.querySelectorAll(".faq-item").length + 1;
 
     const faqContainer = document.createElement("div");
     faqContainer.classList.add("faq-item");
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const addHowToBuyStepButton = document.getElementById("addHowToBuyStep");
 
   function addHowToBuyStep(title = "", description = "") {
-    const stepCount = howToBuySection.querySelectorAll("textarea").length + 1;
+    const stepCount = howToBuySection.querySelectorAll(".how-to-buy-step").length + 1;
 
     const stepContainer = document.createElement("div");
     stepContainer.classList.add("how-to-buy-step");
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const addRoadmapButton = document.getElementById("addRoadmapItem");
 
   function addRoadmapItem(title = "", description = "") {
-    const roadmapCount = roadmapSection.querySelectorAll("textarea").length + 1;
+    const roadmapCount = roadmapSection.querySelectorAll(".roadmap-item").length + 1;
 
     const roadmapContainer = document.createElement("div");
     roadmapContainer.classList.add("roadmap-item");
@@ -142,3 +142,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
   addRoadmapButton.addEventListener("click", () => addRoadmapItem());
 });
+
+// Theme Selection
+document.querySelectorAll(".swatch").forEach((swatch) => {
+  swatch.addEventListener("click", (e) => {
+    const id = e.target.id;
+
+    switch (id) {
+      case "dark-purple":
+        document.documentElement.style.setProperty("--primary-color", "#6a0dad");
+        break;
+      case "dark-orange":
+        document.documentElement.style.setProperty("--primary-color", "#ff7f11");
+        break;
+      case "dark-green":
+        document.documentElement.style.setProperty("--primary-color", "#14f195");
+        break;
+      case "dark-blue":
+        document.documentElement.style.setProperty("--primary-color", "#0077ff");
+        break;
+      case "light-purple":
+        document.documentElement.style.setProperty("--background-dark", "#ffffff");
+        document.documentElement.style.setProperty("--primary-color", "#6a0dad");
+        break;
+      case "light-orange":
+        document.documentElement.style.setProperty("--background-dark", "#ffffff");
+        document.documentElement.style.setProperty("--primary-color", "#ff7f11");
+        break;
+      case "light-green":
+        document.documentElement.style.setProperty("--background-dark", "#ffffff");
+        document.documentElement.style.setProperty("--primary-color", "#14f195");
+        break;
+      case "light-blue":
+        document.documentElement.style.setProperty("--background-dark", "#ffffff");
+        document.documentElement.style.setProperty("--primary-color", "#0077ff");
+        break;
+    }
+  });
+});
+
+// Hero Gradient Update
+document.getElementById("gradient1").addEventListener("change", updateGradient);
+document.getElementById("gradient2").addEventListener("change", updateGradient);
+
+function updateGradient() {
+  const gradient1 = document.getElementById("gradient1").value;
+  const gradient2 = document.getElementById("gradient2").value;
+
+  document.querySelector(".preview-hero").style.background = `linear-gradient(135deg, ${gradient1}, ${gradient2})`;
+}

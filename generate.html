@@ -1,221 +1,215 @@
-/<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memecoin Website Generator</title>
-  <link rel="stylesheet" href="generate/styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <img src="degen-coin.png" alt="Website Logo" style="display: block; margin: 0 auto 1rem; max-width: 150px;">
-    <h1>Memecoin Website Generator</h1>
-    <p class="section-description">Easily create your memecoin project website with this generator. Fill in the required fields, customize your site, and generate it in minutes.</p>
+    <!-- Generator Section -->
+    <div class="generator">
+      <img src="degen-coin.png" alt="Website Logo" style="display: block; margin: 0 auto 1rem; max-width: 150px;">
+      <h1>Memecoin Website Generator</h1>
+      <p class="section-description">Easily create your memecoin project website with this generator. Fill in the required fields, customize your site, and generate it in minutes.</p>
 
-    <!-- Wallet Connect -->
-    <div class="wallet-connect">
-      <button id="connectWallet" class="button">Connect Wallet</button>
-      <p id="walletStatus" style="margin-left: 1rem; font-weight: bold;"></p>
-    </div>
-
-    <!-- Subdomain Section -->
-    <div class="domain-input-container" style="background-color: #1e1e2f; padding: 1rem; border-radius: 12px; margin-top: 1rem;">
-      <input type="text" id="customSubdomain" placeholder="Enter your subdomain" style="width: 100%; padding: 0.75rem; border: 1px solid #6a0dad; background-color: #2a2a3c; color: #ffffff; font-size: 1.2rem; border-radius: 8px; margin-bottom: 1rem;">
-      <select id="domainExtension" style="width: 100%; padding: 0.75rem; background-color: #2e2e3f; color: #ffffff; border: 1px solid #6a0dad; border-radius: 8px; font-size: 1.2rem;">
-        <option value="memecoin.site">memecoin.site</option>
-        <option value="memeonsolana.xyz">memeonsolana.xyz</option>
-        <option value="memesonsol.xyz">memesonsol.xyz</option>
-        <option value="solanamemes.xyz">solanamemes.xyz</option>
-      </select>
-    </div>
-
-    <div id="completedDomainContainer" style="background-color: #1e1e2f; padding: 0.5rem; border-radius: 12px; margin-top: 1rem; text-align: center; display: flex; justify-content: center; align-items: center; gap: 0.5rem;">
-      <p id="completedDomain" style="font-size: 1.2rem; color: #ffffff; font-weight: bold; margin: 0;">your-domain.memecoin.site</p>
-      <span id="availabilityTick" style="color: green; font-size: 1.5rem; display: none;">✅</span>
-    </div>
-
-    <form id="templateForm">
-      <!-- Basic Information -->
-      <h2>Basic Information</h2>
-      <p class="section-description">Provide the foundational details for your project. These fields are required to set up your website correctly.</p>
-
-      <label for="projectName">Project Name</label>
-      <input type="text" id="projectName" placeholder="Enter your project name" required>
-
-      <label for="projectDescription">Project Description</label>
-      <textarea id="projectDescription" rows="4" placeholder="Enter a brief description" required></textarea>
-
-      <label for="contractAddress">Contract Address</label>
-      <input type="text" id="contractAddress" placeholder="Enter contract address" required>
-
-      <label for="buyNowLink">Buy Now Button Link</label>
-      <input type="url" id="buyNowLink" placeholder="Enter a DEX link for Buy Now button" required>
-
-      <label for="logoUpload">Upload Logo</label>
-      <div class="upload" onclick="document.getElementById('logoUpload').click()">Click to Upload Logo</div>
-      <input type="file" id="logoUpload" accept="image/*" style="display: none;" required>
-
-      <!-- About Section -->
-      <h2>About</h2>
-      <p class="section-description">Share some details about your project to engage your audience and highlight its purpose.</p>
-      <label for="aboutTitle">About Title</label>
-      <input type="text" id="aboutTitle" placeholder="Enter title for About section">
-
-      <label for="aboutDescription">About Description</label>
-      <textarea id="aboutDescription" rows="4" placeholder="Enter a description for your project"></textarea>
-
-      <label for="aboutImage">Upload Image</label>
-      <div class="upload" onclick="document.getElementById('aboutImage').click()">Click to Upload Image</div>
-      <input type="file" id="aboutImage" accept="image/*" style="display: none;">
-
-      <!-- How to Buy -->
-      <h2>How to Buy</h2>
-      <div class="switch-container">
-        <span>Enable How to Buy Section</span>
-        <label class="switch">
-          <input type="checkbox" id="enableHowToBuy" checked>
-          <span class="slider"></span>
-        </label>
+      <!-- Subdomain Section -->
+      <div class="section-container">
+        <h2>Subdomain</h2>
+        <label for="customSubdomain">Enter Subdomain</label>
+        <input type="text" id="customSubdomain" placeholder="Enter your subdomain">
+        <label for="domainExtension">Select Domain</label>
+        <select id="domainExtension">
+          <option value="memecoin.site">memecoin.site</option>
+          <option value="memeonsolana.xyz">memeonsolana.xyz</option>
+          <option value="memesonsol.xyz">memesonsol.xyz</option>
+          <option value="solanamemes.xyz">solanamemes.xyz</option>
+        </select>
       </div>
-      <div class="switch-container">
-        <span>Use Default How to Buy</span>
-        <label class="switch">
-          <input type="checkbox" id="useDefaultHowToBuy">
-          <span class="slider"></span>
-        </label>
-      </div>
-      <div id="howToBuySection">
-        <label>Step 1 Title</label>
-        <input type="text" name="howToBuyTitle" placeholder="Enter step title">
-        <label>Step 1 Description</label>
-        <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
-      </div>
-      <button type="button" class="add-button" onclick="addHowToBuyStep()">Add Step</button>
 
-      <!-- Roadmap -->
-      <h2>Roadmap</h2>
-      <div class="switch-container">
-        <span>Enable Roadmap Section</span>
-        <label class="switch">
-          <input type="checkbox" id="enableRoadmap" checked>
-          <span class="slider"></span>
-        </label>
+      <!-- Basic Information Section -->
+      <div class="section-container">
+        <h2>Basic Information</h2>
+        <label for="projectName">Project Name</label>
+        <input type="text" id="projectName" placeholder="Enter your project name" required>
+        <label for="projectDescription">Project Description</label>
+        <textarea id="projectDescription" rows="4" placeholder="Enter a brief description" required></textarea>
+        <label for="contractAddress">Contract Address</label>
+        <input type="text" id="contractAddress" placeholder="Enter contract address" required>
+        <label for="buyNowLink">Buy Now Button Link</label>
+        <input type="url" id="buyNowLink" placeholder="Enter a DEX link for Buy Now button" required>
+        <label for="logoUpload">Upload Logo</label>
+        <div class="upload-container">
+          <div class="upload" onclick="document.getElementById('logoUpload').click()">Click to Upload Logo</div>
+          <input type="file" id="logoUpload" accept="image/*" required>
+        </div>
       </div>
-      <div id="roadmapSection">
-        <label>Roadmap Item Title</label>
-        <input type="text" name="roadmapTitle" placeholder="Enter roadmap title">
-        <label>Roadmap Item Description</label>
-        <textarea name="roadmapDescription" rows="3" placeholder="Enter roadmap description"></textarea>
+
+      <!-- About Us Section -->
+      <div class="section-container">
+        <h2>About Us</h2>
+        <label for="aboutTitle">About Title</label>
+        <input type="text" id="aboutTitle" placeholder="Enter title for About section">
+        <label for="aboutDescription">About Description</label>
+        <textarea id="aboutDescription" rows="4" placeholder="Enter a description for your project"></textarea>
+        <label for="aboutImage">Upload Image</label>
+        <div class="upload-container">
+          <div class="upload" onclick="document.getElementById('aboutImage').click()">Click to Upload Image</div>
+          <input type="file" id="aboutImage" accept="image/*">
+        </div>
       </div>
-      <button type="button" class="add-button" onclick="addRoadmapItem()">Add Roadmap Item</button>
+
+      <!-- Social Links Section -->
+      <div class="section-container">
+        <h2>Social Links</h2>
+        <label for="telegramLink">Telegram Link</label>
+        <input type="url" id="telegramLink" placeholder="Enter Telegram link">
+        <label for="discordLink">Discord Link</label>
+        <input type="url" id="discordLink" placeholder="Enter Discord link">
+        <label for="xLink">X (Twitter) Link</label>
+        <input type="url" id="xLink" placeholder="Enter X (Twitter) link">
+        <label for="dexScreenerLink">DEXScreener Link</label>
+        <input type="url" id="dexScreenerLink" placeholder="Enter DEXScreener link">
+      </div>
+
+      <!-- Roadmap Section -->
+      <div class="section-container">
+        <h2>Roadmap</h2>
+        <div class="switch-container">
+          <span>Enable Roadmap Section</span>
+          <label class="switch">
+            <input type="checkbox" id="enableRoadmap" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div id="roadmapSection">
+          <label for="roadmapItem1">Roadmap Item Title</label>
+          <input type="text" id="roadmapItem1" placeholder="Enter roadmap item title">
+          <label for="roadmapDescription1">Roadmap Item Description</label>
+          <textarea id="roadmapDescription1" rows="3" placeholder="Enter roadmap item description"></textarea>
+        </div>
+        <button type="button" id="addRoadmapItem" class="add-button">Add Roadmap Item</button>
+      </div>
+
+      <!-- How to Buy Section -->
+      <div class="section-container">
+        <h2>How to Buy</h2>
+        <div class="switch-container">
+          <span>Enable How to Buy Section</span>
+          <label class="switch">
+            <input type="checkbox" id="enableHowToBuy" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="switch-container">
+          <span>Use Default How to Buy</span>
+          <label class="switch">
+            <input type="checkbox" id="useDefaultHowToBuy">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div id="howToBuySection"></div>
+        <button type="button" id="addHowToBuyStep" class="add-button">Add Step</button>
+      </div>
 
       <!-- FAQ Section -->
-      <h2>FAQ Section</h2>
-      <div class="switch-container">
-        <span>Enable FAQ Section</span>
-        <label class="switch">
-          <input type="checkbox" id="enableFaq" checked>
-          <span class="slider"></span>
-        </label>
-      </div>
-      <div id="faqSection">
-        <label for="faqQuestion1">FAQ Question 1</label>
-        <input type="text" id="faqQuestion1" placeholder="Enter question">
-        <label for="faqAnswer1">FAQ Answer 1</label>
-        <textarea id="faqAnswer1" rows="3" placeholder="Enter answer"></textarea>
+      <div class="section-container">
+        <h2>FAQ</h2>
+        <div class="switch-container">
+          <span>Enable FAQ Section</span>
+          <label class="switch">
+            <input type="checkbox" id="enableFaq" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="switch-container">
+          <span>Use Default FAQ</span>
+          <label class="switch">
+            <input type="checkbox" id="useDefaultFaq">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div id="faqSection"></div>
         <button type="button" class="add-button" onclick="addFaqItem()">Add FAQ</button>
       </div>
 
       <!-- Cost Section -->
-      <div class="cost-section" style="background-color: #d4f7d4; padding: 0.5rem 1rem; border-radius: 8px; text-align: center; margin-top: 1rem;">
-        <p style="font-size: 1rem; color: #000000; font-weight: bold; margin: 0;">Custom Memecoin Website Cost: 0.1 SOL</p>
+      <div class="cost-section">
+        <p>Custom Memecoin Website Cost: 0.1 SOL</p>
       </div>
 
-      <button type="submit" class="filled-button" style="margin-bottom: 2rem;">Create Website</button>
-    </form>
+      <!-- Create Website Button -->
+      <button type="submit" class="filled-button">Create Website</button>
+    </div>
+
+<div class="live-preview">
+  <div id="preview" class="website-preview">
+    <!-- Navigation -->
+    <nav class="preview-nav">
+      <h1 id="previewTitle">MemeCoin</h1>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#how-to-buy">How to Buy</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <button id="previewBuyNowButton" class="button">Buy Now</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="preview-hero">
+      <img src="" alt="Logo" id="previewLogo">
+      <h1 id="previewHeroTitle">MemeCoin</h1>
+      <p id="previewHeroDescription">The next-generation meme token for fun and community!</p>
+      <div class="preview-social-icons" id="previewSocialIcons"></div>
+      <div class="contract">
+        <p id="previewContractAddress">CA: 0x123456789abcdef123456789abcdef12345678</p>
+        <span class="icon" onclick="copyToClipboard()">📋</span>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="preview-section">
+      <h2>About MemeCoin</h2>
+      <div class="about">
+        <img src="" alt="About Image" id="previewAboutImage">
+        <div class="about-text">
+          <p id="previewAboutText">MemeCoin is designed to bring joy and fun to the crypto community.</p>
+          <button id="previewAboutBuyButton" class="button">Buy Now</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Buy Section -->
+    <section id="how-to-buy" class="preview-section">
+      <h2>How to Buy</h2>
+      <div class="how-to-buy" id="previewHowToBuy"></div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="preview-section">
+      <h2>Roadmap</h2>
+      <div class="roadmap" id="previewRoadmap"></div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="preview-section">
+      <h2>FAQ</h2>
+      <div class="faq" id="previewFaq"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="preview-footer">
+      <p>&copy; 2025 MemeCoin. All Rights Reserved.</p>
+    </footer>
   </div>
+</div>
+    </section>
 
-  <!-- JavaScript -->
-  <script>
-    const subdomainInput = document.getElementById('customSubdomain');
-    const domainExtension = document.getElementById('domainExtension');
-    const completedDomain = document.getElementById('completedDomain');
-    const availabilityTick = document.getElementById('availabilityTick');
+  </div>
+</div>
 
-    async function updateCompletedDomain() {
-      const subdomain = subdomainInput.value.trim();
-      const extension = domainExtension.value;
-      const fullSubdomain = subdomain ? `${subdomain}.${extension}` : 'your-domain.memecoin.site';
-
-      completedDomain.textContent = fullSubdomain;
-
-      if (!subdomain) {
-        completedDomain.style.color = '#ffffff';
-        availabilityTick.style.display = 'none';
-        return;
-      }
-
-      const isAvailable = await fakeDomainCheck(subdomain, extension);
-
-      if (isAvailable) {
-        completedDomain.style.color = 'green';
-        availabilityTick.style.color = 'green';
-        availabilityTick.textContent = '✅';
-        availabilityTick.style.display = 'inline';
-      } else {
-        completedDomain.style.color = 'red';
-        availabilityTick.style.color = 'red';
-        availabilityTick.textContent = '❌';
-        availabilityTick.style.display = 'inline';
-      }
-    }
-
-    async function fakeDomainCheck(subdomain, extension) {
-      const takenDomains = ['example.memecoin.site', 'test.memeonsolana.xyz'];
-      return !takenDomains.includes(`${subdomain}.${extension}`);
-    }
-
-    subdomainInput.addEventListener('input', updateCompletedDomain);
-    domainExtension.addEventListener('change', updateCompletedDomain);
-
-    function addHowToBuyStep() {
-      const howToBuySection = document.getElementById("howToBuySection");
-      const stepCount = howToBuySection.querySelectorAll("input").length / 2 + 1;
-      const newStep = `
-        <label>Step ${stepCount} Title</label>
-        <input type="text" name="howToBuyTitle" placeholder="Enter step title">
-        <label>Step ${stepCount} Description</label>
-        <textarea name="howToBuyDescription" rows="3" placeholder="Enter step description"></textarea>
-      `;
-      howToBuySection.insertAdjacentHTML("beforeend", newStep);
-    }
-
-    function addFaqItem() {
-      const faqSection = document.getElementById("faqSection");
-      const faqCount = faqSection.querySelectorAll("input").length + 1;
-      const newFaq = `
-        <label for="faqQuestion${faqCount}">FAQ Question ${faqCount}</label>
-        <input type="text" id="faqQuestion${faqCount}" placeholder="Enter question">
-        <label for="faqAnswer${faqCount}">FAQ Answer ${faqCount}</label>
-        <textarea id="faqAnswer${faqCount}" rows="3" placeholder="Enter answer"></textarea>
-      `;
-      faqSection.insertAdjacentHTML("beforeend", newFaq);
-    }
-
-    function addRoadmapItem() {
-      const roadmapSection = document.getElementById("roadmapSection");
-      const roadmapCount = roadmapSection.querySelectorAll("input").length + 1;
-      const newRoadmap = `
-        <label>Roadmap Item Title ${roadmapCount}</label>
-        <input type="text" name="roadmapTitle" placeholder="Enter roadmap title">
-        <label>Roadmap Item Description ${roadmapCount}</label>
-        <textarea name="roadmapDescription" rows="3" placeholder="Enter roadmap description"></textarea>
-      `;
-      roadmapSection.insertAdjacentHTML("beforeend", newRoadmap);
-    }
-
-    // Initialize on load
-    updateCompletedDomain();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

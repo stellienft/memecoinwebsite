@@ -484,3 +484,58 @@ h3 {
 .theme-light-blue {
   background: linear-gradient(to bottom, #ffffff 50%, #0055cc 50%);
 }
+
+/* Footer Styles */
+.preview-footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #1e1e2f;
+  border-top: 1px solid #6a0dad;
+  color: #d4d4d4;
+}
+
+.preview-footer a {
+  color: #6a0dad;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.preview-footer a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Animated Button Styles */
+.filled-button {
+  background-color: #6a0dad;
+  color: #ffffff;
+  padding: 0.75rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+  animation: pulse 1.5s infinite; /* Animation */
+}
+
+.filled-button:hover {
+  background-color: #592a92;
+  transform: scale(1.05); /* Slight scaling on hover */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(106, 13, 173, 0.6);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(106, 13, 173, 0.8);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(106, 13, 173, 0.6);
+  }
+}

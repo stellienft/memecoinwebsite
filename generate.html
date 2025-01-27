@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memecoin Website Generator</title>
-  <link rel="stylesheet" href="generate/styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
@@ -83,12 +83,7 @@
             <span class="slider"></span>
           </label>
         </div>
-        <div id="roadmapSection">
-          <label for="roadmapItem1">Roadmap Item Title</label>
-          <input type="text" id="roadmapItem1" placeholder="Enter roadmap item title">
-          <label for="roadmapDescription1">Roadmap Item Description</label>
-          <textarea id="roadmapDescription1" rows="3" placeholder="Enter roadmap item description"></textarea>
-        </div>
+        <div id="roadmapSection"></div>
         <button type="button" id="addRoadmapItem" class="add-button">Add Roadmap Item</button>
       </div>
 
@@ -131,7 +126,7 @@
           </label>
         </div>
         <div id="faqSection"></div>
-        <button type="button" class="add-button" onclick="addFaqItem()">Add FAQ</button>
+        <button type="button" id="addFaqItem" class="add-button">Add FAQ</button>
       </div>
 
       <!-- Cost Section -->
@@ -143,72 +138,13 @@
       <button type="submit" class="filled-button">Create Website</button>
     </div>
 
-<div class="live-preview">
-  <div id="preview" class="website-preview">
-    <!-- Navigation -->
-    <nav class="preview-nav">
-      <h1 id="previewTitle">MemeCoin</h1>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#how-to-buy">How to Buy</a></li>
-        <li><a href="#roadmap">Roadmap</a></li>
-        <li><a href="#faq">FAQ</a></li>
-      </ul>
-      <button id="previewBuyNowButton" class="button">Buy Now</button>
-    </nav>
-
-    <!-- Hero Section -->
-    <div class="preview-hero">
-      <img src="" alt="Logo" id="previewLogo">
-      <h1 id="previewHeroTitle">MemeCoin</h1>
-      <p id="previewHeroDescription">The next-generation meme token for fun and community!</p>
-      <div class="preview-social-icons" id="previewSocialIcons"></div>
-      <div class="contract">
-        <p id="previewContractAddress">CA: 0x123456789abcdef123456789abcdef12345678</p>
-        <span class="icon" onclick="copyToClipboard()">📋</span>
+    <!-- Live Preview Section -->
+    <div class="live-preview">
+      <div id="preview" class="website-preview">
+        <!-- Content will be dynamically updated based on user input -->
       </div>
     </div>
-
-    <!-- About Section -->
-    <section id="about" class="preview-section">
-      <h2>About MemeCoin</h2>
-      <div class="about">
-        <img src="" alt="About Image" id="previewAboutImage">
-        <div class="about-text">
-          <p id="previewAboutText">MemeCoin is designed to bring joy and fun to the crypto community.</p>
-          <button id="previewAboutBuyButton" class="button">Buy Now</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- How to Buy Section -->
-    <section id="how-to-buy" class="preview-section">
-      <h2>How to Buy</h2>
-      <div class="how-to-buy" id="previewHowToBuy"></div>
-    </section>
-
-    <!-- Roadmap Section -->
-    <section id="roadmap" class="preview-section">
-      <h2>Roadmap</h2>
-      <div class="roadmap" id="previewRoadmap"></div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="preview-section">
-      <h2>FAQ</h2>
-      <div class="faq" id="previewFaq"></div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="preview-footer">
-      <p>&copy; 2025 MemeCoin. All Rights Reserved.</p>
-    </footer>
   </div>
-</div>
-    </section>
-
-  </div>
-</div>
 
   <script src="script.js"></script>
 </body>

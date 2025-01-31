@@ -1,427 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MemeCoin</title>
-  <style>
-    :root {
-      --background-dark: #1e1e2f;
-      --background-light: #2a2a3c;
-      --primary-color: #9945ff;
-      --accent-color: #14f195;
-      --text-light: #ffffff;
-      --text-muted: #9e9e9e;
-      --text-dark: #000000;
-      --border-radius: 12px;
-      --font-family: 'Inter', sans-serif;
-    }
-    body {
-      margin: 0;
-      font-family: var(--font-family);
-      background-color: var(--background-dark);
-      color: var(--text-light);
-      line-height: 1.6;
-    }
-    nav {
-      max-width: 1200px;
-      margin: 20px auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-    nav h1 {
-      font-size: 1.5rem;
-      color: var(--text-light);
-      margin: 0;
-    }
-    nav ul {
-      display: flex;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    nav ul li {
-      margin: 0 1rem;
-    }
-    nav ul li a {
-      text-decoration: none;
-      color: var(--text-light);
-      font-size: 1rem;
-      transition: color 0.3s;
-    }
-    nav ul li a:hover {
-      color: var(--accent-color);
-    }
-    nav .button {
-      background-color: var(--primary-color);
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      color: var(--text-light);
-      font-size: 0.9rem;
-      transition: background-color 0.3s;
-      animation: slideInFromTop 1s ease-in-out;
-    }
-    nav .button:hover {
-      background-color: var(--accent-color);
-      color: var(--background-dark);
-    }
-    .hero {
-      text-align: center;
-      padding: 4rem 1rem;
-      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-      color: var(--text-light);
-      border-radius: var(--border-radius);
-      animation: fadeIn 1.5s ease-in-out;
-    }
-    .hero img {
-      max-width: 100px;
-      margin-bottom: 1rem;
-      animation: bounce 2s infinite;
-    }
-    .hero h1 {
-      font-size: 4rem;
-      font-weight: bold;
-      margin: 0;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      margin: 1rem 0;
-    }
-    .social-icons {
-      margin-top: 1.5rem;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-    }
-    .social-icons a {
-      color: var(--text-light);
-      font-size: 1.5rem;
-      transition: color 0.3s;
-    }
-    .social-icons a:hover {
-      color: var(--accent-color);
-    }
-    .contract {
-      margin-top: 1rem;
-      padding: 0.75rem 1rem;
-      background-color: var(--background-light);
-      border-radius: var(--border-radius);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      animation: fadeIn 2s ease-in-out;
-    }
-    .contract p {
-      font-size: 1rem;
-      margin: 0;
-      color: var(--text-light);
-    }
-    .contract .icon {
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: var(--accent-color);
-      transition: color 0.3s;
-    }
-    .contract .icon:hover {
-      color: var(--primary-color);
-    }
-    section {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 2rem;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-    section h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-    }
-    .about {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 2rem;
-    }
-    .about img {
-      max-width: 45%;
-      border-radius: var(--border-radius);
-      animation: fadeInLeft 1.5s ease-in-out;
-    }
-    .about-text {
-      max-width: 50%;
-      animation: fadeInRight 1.5s ease-in-out;
-    }
-    .about .button {
-      margin: 2rem 0 0 0;
-      background-color: var(--primary-color);
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      color: var(--text-light);
-      font-size: 1rem;
-      transition: background-color 0.3s;
-    }
-    .about .button:hover {
-      background-color: var(--accent-color);
-      color: var(--background-dark);
-    }
-    .how-to-buy {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 2rem;
-    }
-    .how-to-buy .step {
-      text-align: center;
-      flex: 1;
-      min-width: 250px;
-      background-color: var(--background-light);
-      padding: 1.5rem;
-      border-radius: var(--border-radius);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      animation: fadeInUp 1s ease-in-out;
-    }
-    .how-to-buy .step i {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-      display: block;
-      color: var(--accent-color);
-    }
-    .roadmap {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-    .roadmap .quarter {
-      text-align: center;
-      padding: 1rem;
-      border: 1px solid var(--accent-color);
-      border-radius: var(--border-radius);
-      animation: zoomIn 1.5s ease-in-out;
-    }
-    .faq {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .faq-item {
-      padding: 1rem;
-      border-radius: var(--border-radius);
-      background-color: var(--background-light);
-      cursor: pointer;
-      animation: fadeInUp 1.2s ease-in-out;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .faq-item:hover {
-      transform: scale(1.02);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    }
-    .faq-item h3 {
-      margin: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 1.2rem;
-    }
-    .faq-item .toggle {
-      font-size: 1.5rem;
-      color: var(--accent-color);
-      transition: transform 0.3s;
-    }
-    .faq-item p {
-      display: none;
-      margin-top: 0.5rem;
-      padding-top: 0.5rem;
-      border-top: 1px solid var(--text-muted);
-    }
-    .faq-item.active p {
-      display: block;
-    }
-    .faq-item.active .toggle {
-      transform: rotate(45deg);
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      color: var(--text-muted);
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    /* Keyframes */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-    @keyframes slideInFromTop {
-      from {
-        transform: translateY(-20px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-      }
-      40% {
-        transform: translateY(-10px);
-      }
-      60% {
-        transform: translateY(-5px);
-      }
-    }
-    @keyframes fadeInUp {
-      from {
-        transform: translateY(20px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-    @keyframes zoomIn {
-      from {
-        transform: scale(0.8);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-  </style>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <title>Memecoin Website Generator</title>
+  <link rel="stylesheet" href="styles.css">
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <nav>
-    <h1>MemeCoin</h1>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#how-to-buy">How to Buy</a></li>
-      <li><a href="#tokenomics">Tokenomics</a></li>
-      <li><a href="#roadmap">Roadmap</a></li>
-    </ul>
-    <button class="button">Buy Now</button>
-  </nav>
+  <div class="container">
+    <!-- Generator Section -->
+    <div class="generator">
+      <img src="degen-coin.png" alt="Website Logo" style="display: block; margin: 0 auto 1rem; max-width: 150px;">
+      <h1>Memecoin Website Generator</h1>
+      <p class="section-description">Easily create your memecoin project website with this generator. Fill in the required fields, customize your site, and generate it in minutes.</p>
 
-  <div class="hero">
-    <img src="/logo.png" alt="MemeCoin Logo">
-    <h1>MemeCoin</h1>
-    <p>The next-generation meme token for fun and community!</p>
-    <div class="social-icons">
-      <a href="#" target="_blank"><i class="fab fa-telegram"></i></a>
-      <a href="#" target="_blank"><i class="fab fa-discord"></i></a>
-      <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-      <a href="#" target="_blank"><i class="fas fa-chart-line"></i></a>
-    </div>
-    <div class="contract">
-      <p>CA: 0x123456789abcdef123456789abcdef12345678</p>
-      <span class="icon" onclick="copyToClipboard()">📋</span>
+    <!-- Subdomain Section -->
+<div class="section-container">
+  <h2>Subdomain</h2>
+  <label for="customSubdomain">Enter Subdomain</label>
+  <input type="text" id="customSubdomain" placeholder="Enter your subdomain">
+  <label for="domainExtension">Select Domain</label>
+  <select id="domainExtension">
+    <option value="memecoin.site">memecoin.site</option>
+    <option value="memeonsolana.xyz">memeonsolana.xyz</option>
+    <option value="memesonsol.xyz">memesonsol.xyz</option>
+    <option value="solanamemes.xyz">solanamemes.xyz</option>
+  </select>
+  <div id="domainStatus" class="domain-status"></div>
+</div>
+
+<!-- Theme Selection Section -->
+<div class="section-container">
+  <h2>Theme Selection</h2>
+
+  <!-- Hero Section Gradient -->
+  <div class="gradient-picker">
+    <label for="gradient1" style="text-align: left;">Hero Section Gradient</label>
+    <div class="gradient-colors">
+      <input type="color" id="gradient1" class="gradient-swatch" value="#6a0dad" title="Gradient Color 1">
+      <input type="color" id="gradient2" class="gradient-swatch" value="#14f195" title="Gradient Color 2">
     </div>
   </div>
 
-  <section id="about">
-    <h2>About MemeCoin</h2>
-    <div class="about">
-      <img src="/about-image.png" alt="About MemeCoin">
-      <div class="about-text">
-        <p>MemeCoin is designed to bring joy and fun to the crypto community. With zero taxes, a renounced contract, and an engaged community, MemeCoin aims to restore the greatness of meme tokens.</p>
-        <p>Fueled purely by meme power, MemeCoin is for everyone who believes in the strength of community and humor.</p>
-        <button class="button">Buy Now</button>
+  <!-- Colour Scheme -->
+  <h3>Colour Scheme</h3>
+  <div class="site-theme">
+    <div class="theme-swatch theme-dark-purple" data-theme="dark-purple" title="Dark / Purple"></div>
+    <div class="theme-swatch theme-dark-orange" data-theme="dark-orange" title="Dark / Orange"></div>
+    <div class="theme-swatch theme-dark-green" data-theme="dark-green" title="Dark / Green"></div>
+    <div class="theme-swatch theme-dark-blue" data-theme="dark-blue" title="Dark / Blue"></div>
+    <div class="theme-swatch theme-light-purple" data-theme="light-purple" title="Light / Purple"></div>
+    <div class="theme-swatch theme-light-orange" data-theme="light-orange" title="Light / Orange"></div>
+    <div class="theme-swatch theme-light-green" data-theme="light-green" title="Light / Green"></div>
+    <div class="theme-swatch theme-light-blue" data-theme="light-blue" title="Light / Blue"></div>
+  </div>
+</div>
+
+      <!-- Basic Information Section -->
+      <div class="section-container">
+        <h2>Basic Information</h2>
+        <label for="projectName">Project Name</label>
+        <input type="text" id="projectName" placeholder="Enter your project name" required>
+        <label for="projectDescription">Project Description</label>
+        <textarea id="projectDescription" rows="4" placeholder="Enter a brief description" required></textarea>
+        <label for="contractAddress">Contract Address</label>
+        <input type="text" id="contractAddress" placeholder="Enter contract address" required>
+        <label for="buyNowLink">Buy Now Button Link</label>
+        <input type="url" id="buyNowLink" placeholder="Enter a DEX link for Buy Now button" required>
+        <label for="logoUpload">Upload Logo</label>
+        <div class="upload-container">
+          <div class="upload" onclick="document.getElementById('logoUpload').click()">Click to Upload Logo</div>
+          <input type="file" id="logoUpload" accept="image/*" required>
+        </div>
+      </div>
+
+      <!-- About Us Section -->
+      <div class="section-container">
+        <h2>About Us</h2>
+        <label for="aboutTitle">About Title</label>
+        <input type="text" id="aboutTitle" placeholder="Enter title for About section">
+        <label for="aboutDescription">About Description</label>
+        <textarea id="aboutDescription" rows="4" placeholder="Enter a description for your project"></textarea>
+        <label for="aboutImage">Upload Image</label>
+        <div class="upload-container">
+          <div class="upload" onclick="document.getElementById('aboutImage').click()">Click to Upload Image</div>
+          <input type="file" id="aboutImage" accept="image/*">
+        </div>
+      </div>
+
+      <!-- Social Links Section -->
+      <div class="section-container">
+        <h2>Social Links</h2>
+        <label for="telegramLink">Telegram Link</label>
+        <input type="url" id="telegramLink" placeholder="Enter Telegram link">
+        <label for="discordLink">Discord Link</label>
+        <input type="url" id="discordLink" placeholder="Enter Discord link">
+        <label for="xLink">X (Twitter) Link</label>
+        <input type="url" id="xLink" placeholder="Enter X (Twitter) link">
+        <label for="dexScreenerLink">DEXScreener Link</label>
+        <input type="url" id="dexScreenerLink" placeholder="Enter DEXScreener link">
+      </div>
+
+      <!-- Roadmap Section -->
+      <div class="section-container">
+        <h2>Roadmap</h2>
+        <div class="switch-container">
+          <span>Enable Roadmap Section</span>
+          <label class="switch">
+            <input type="checkbox" id="enableRoadmap" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div id="roadmapSection"></div>
+        <button type="button" id="addRoadmapItem" class="add-button">Add Roadmap Item</button>
+      </div>
+
+      <!-- How to Buy Section -->
+      <div class="section-container">
+        <h2>How to Buy</h2>
+        <div class="switch-container">
+          <span>Enable How to Buy Section</span>
+          <label class="switch">
+            <input type="checkbox" id="enableHowToBuy" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="switch-container">
+          <span>Use Default How to Buy</span>
+          <label class="switch">
+            <input type="checkbox" id="useDefaultHowToBuy">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div id="howToBuySection"></div>
+        <button type="button" id="addHowToBuyStep" class="add-button">Add Step</button>
+      </div>
+      
+      <!-- Tokenomics Section -->
+<div class="section-container">
+  <h2>Tokenomics</h2>
+  <div id="tokenomicsFields"></div>
+  <button type="button" onclick="addTokenomicsField()">Add Allocation</button>
+  
+  <canvas id="tokenomicsChart"></canvas>
+</div>
+
+      <!-- FAQ Section -->
+      <div class="section-container">
+        <h2>FAQ</h2>
+        <div class="switch-container">
+          <span>Enable FAQ Section</span>
+          <label class="switch">
+            <input type="checkbox" id="enableFaq" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="switch-container">
+          <span>Use Default FAQ</span>
+          <label class="switch">
+            <input type="checkbox" id="useDefaultFaq">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div id="faqSection"></div>
+        <button type="button" id="addFaqItem" class="add-button">Add FAQ</button>
+      </div>
+
+      <!-- Cost Section -->
+      <div class="cost-section">
+        <p>Custom Memecoin Website Cost: 0.1 SOL</p>
+      </div>
+
+      <!-- Create Website Button -->
+     <button type="submit" class="filled-button">Create Memecoin Website</button>
+    </div>
+
+    <!-- Live Preview Section -->
+    <div class="live-preview">
+      <div id="preview" class="website-preview">
+        <!-- Content will be dynamically updated based on user input -->
       </div>
     </div>
-  </section>
+  </div>
+  <footer class="preview-footer">
+  <p>
+    Made with ❤️ by 
+    <a href="https://memesitegenerator.xyz" target="_blank" rel="noopener noreferrer">
+      Memecoin Site Generator
+    </a>
+  </p>
+</footer>
 
-  <section id="how-to-buy">
-    <h2>How to Buy</h2>
-    <div class="how-to-buy">
-      <div class="step">
-        <i>🔐</i>
-        <h3>Step 1</h3>
-        <p>Set up your wallet and add funds.</p>
-      </div>
-      <div class="step">
-        <i>📈</i>
-        <h3>Step 2</h3>
-        <p>Go to the exchange and search for MemeCoin.</p>
-      </div>
-      <div class="step">
-        <i>💸</i>
-        <h3>Step 3</h3>
-        <p>Buy MemeCoin and store it securely.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="roadmap">
-    <h2>Roadmap</h2>
-    <div class="roadmap">
-      <div class="quarter">
-        <h3>Q1 2025</h3>
-        <p>Launch and community building.</p>
-      </div>
-      <div class="quarter">
-        <h3>Q2 2025</h3>
-        <p>Partnerships and ecosystem expansion.</p>
-      </div>
-      <div class="quarter">
-        <h3>Q3 2025</h3>
-        <p>Feature rollouts and user growth.</p>
-      </div>
-      <div class="quarter">
-        <h3>Q4 2025</h3>
-        <p>Global adoption and scaling.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq">
-    <h2>FAQ</h2>
-    <div class="faq">
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <h3>What is MemeCoin? <span class="toggle">+</span></h3>
-        <p>MemeCoin is a next-generation token designed for fun and community engagement.</p>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <h3>How do I buy MemeCoin? <span class="toggle">+</span></h3>
-        <p>Follow our simple steps: set up a wallet, visit the exchange, and purchase MemeCoin.</p>
-      </div>
-      <div class="faq-item" onclick="toggleFaq(this)">
-        <h3>Where can I store MemeCoin? <span class="toggle">+</span></h3>
-        <p>You can securely store MemeCoin in any compatible cryptocurrency wallet.</p>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 MemeCoin. All Rights Reserved.</p>
-  </footer>
-
-  <script>
-    function copyToClipboard() {
-      const contractAddress = "0x123456789abcdef123456789abcdef12345678";
-      navigator.clipboard.writeText(contractAddress).then(() => {
-        alert("Contract address copied to clipboard!");
-      });
-    }
-
-    function toggleFaq(faqItem) {
-      faqItem.classList.toggle('active');
-    }
-  </script>
+  <script src="script.js"></script>
+  
 </body>
 </html>

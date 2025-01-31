@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memecoin Website Generator</title>
-  <link rel="stylesheet" href="generate/styles.css">
+  <link rel="stylesheet" href="styles.css">
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="container">
@@ -135,6 +137,15 @@
         <div id="howToBuySection"></div>
         <button type="button" id="addHowToBuyStep" class="add-button">Add Step</button>
       </div>
+      
+      <!-- Tokenomics Section -->
+<div class="section-container">
+  <h2>Tokenomics</h2>
+  <div id="tokenomicsFields"></div>
+  <button type="button" onclick="addTokenomicsField()">Add Allocation</button>
+  
+  <canvas id="tokenomicsChart"></canvas>
+</div>
 
       <!-- FAQ Section -->
       <div class="section-container">

@@ -213,3 +213,94 @@ document.addEventListener("DOMContentLoaded", () => {
   domainExtensionSelect.addEventListener("change", updateDomainStatus);
 });
 
+let tokenomicsData = [];
+let tokenomicsChart;
+
+function addTokenomicsField() {
+  const container = document.getElementById("tokenomicsFields");
+  const div = document.createElement("div");
+  div.className = "tokenomics-entry";
+  div.innerHTML = `
+    <input type="text" placeholder="Category" class="category">
+    <input type="number" placeholder="% Allocation" class="percentage" min="1" max="100" oninput="updateChart()">
+    <button type="button" onclick="removeTokenomicsField(this)">
+      <i class="fas fa-trash-alt"></i>
+    </button>
+  `;
+  container.appendChild(div);
+  updateChart();
+}
+
+function removeTokenomicsField(button) {
+  button.parentElement.remove();
+  updateChart();
+}
+
+function removeTokenomicsField(button) {
+  button.parentElement.remove();
+  updateChart();
+}
+
+function updateChart() {
+  const categories = document.querySelectorAll(".category");
+  const percentages = document.querySelectorAll(".percentage");
+  tokenomicsData = [];
+
+  let total = 0;
+  categories.forEach((cat, index) => {
+    const name = cat.value || `Category ${index + 1}`;
+    const value = parseFloat(percentages[index].value) || 0;
+    if (value > 0) {
+      tokenomicsData.push({ name, value });
+      total += value;
+    }
+  });
+
+  if (total > 100) {
+    alert("Total allocation cannot exceed 100%");
+    return;
+  }
+
+  renderChart();
+}
+
+function renderChart() {
+  const ctx = document.getElementById("tokenomicsChart").getContext("2d");
+  if (tokenomicsChart) tokenomicsChart.destroy();
+
+  const selectedTheme = document.querySelector(".site-theme .selected"); // Get selected theme
+  let themeColors = getThemeColors(selectedTheme ? selectedTheme.dataset.theme : "default");
+
+  tokenomicsChart = new Chart(ctx, {
+    type: "pie",
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,  // Ensure it keeps its shape
+      aspectRatio: 1,             // Force a 1:1 square aspect ratio
+    },
+    data: {
+      labels: tokenomicsData.map(item => item.name),
+      datasets: [{
+        data: tokenomicsData.map(item => item.value),
+        backgroundColor: themeColors,
+      }]
+    }
+  });
+}
+
+function getThemeColors(theme) {
+  const colorThemes = {
+    "dark-purple": ["#6a0dad", "#8e44ad", "#9b59b6", "#bdc3c7"],
+    "dark-orange": ["#e67e22", "#d35400", "#f39c12", "#f1c40f"],
+    "dark-green": ["#2ecc71", "#27ae60", "#16a085", "#1abc9c"],
+    "dark-blue": ["#3498db", "#2980b9", "#34495e", "#2c3e50"],
+    "light-purple": ["#c39bd3", "#d7bde2", "#e8daef", "#f5eef8"],
+    "light-orange": ["#f5b041", "#f8c471", "#f9e79f", "#fcf3cf"],
+    "light-green": ["#a9dfbf", "#82e0aa", "#abebc6", "#d5f5e3"],
+    "light-blue": ["#85c1e9", "#5dade2", "#3498db", "#2874a6"],
+    "default": ["#ff6384", "#36a2eb", "#ffcd56", "#4bc0c0"]
+  };
+
+  return colorThemes[theme] || colorThemes["default"];
+}
+

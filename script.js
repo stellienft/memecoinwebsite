@@ -304,3 +304,22 @@ function getThemeColors(theme) {
   return colorThemes[theme] || colorThemes["default"];
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    const createButton = document.getElementById("createWebsiteButton");
+    const disclaimerCheckbox = document.getElementById("confirmDisclaimer");
+
+    // Disable button by default
+    createButton.disabled = true;
+    createButton.style.opacity = "0.5"; // Make it look inactive
+
+    disclaimerCheckbox.addEventListener("change", () => {
+        if (disclaimerCheckbox.checked) {
+            createButton.disabled = false;
+            createButton.style.opacity = "1";
+        } else {
+            createButton.disabled = true;
+            createButton.style.opacity = "0.5";
+        }
+    });
+});
+
